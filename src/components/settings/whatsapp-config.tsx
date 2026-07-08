@@ -399,13 +399,14 @@ export function WhatsAppConfig() {
     setIsFbLoggingIn(true);
     window.FB.login(
       (response: any) => {
-        if (response.authResponse && response.authResponse.accessToken) {
+        if (response.authResponse && (response.authResponse.code || response.authResponse.accessToken)) {
           const accessToken = response.authResponse.accessToken;
+          const code = response.authResponse.code;
           // Send to backend
           fetch('/api/whatsapp/embedded-signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ accessToken }),
+            body: JSON.stringify({ accessToken, code }),
           })
             .then(res => res.json())
             .then(data => {
@@ -428,6 +429,8 @@ export function WhatsAppConfig() {
       },
       {
         config_id: process.env.NEXT_PUBLIC_META_CONFIG_ID,
+        response_type: 'code',
+        override_default_response_type: true,
         extras: {
           setup: {},
           feature: 'whatsapp_embedded_signup'

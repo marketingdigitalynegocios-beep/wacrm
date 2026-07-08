@@ -31,10 +31,10 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const { accessToken } = body
+    const { accessToken: rawAccessToken, code } = body
 
-    if (!accessToken) {
-      return NextResponse.json({ error: 'accessToken is required' }, { status: 400 })
+    if (!rawAccessToken && !code) {
+      return NextResponse.json({ error: 'accessToken or code is required' }, { status: 400 })
     }
 
     const appId = process.env.NEXT_PUBLIC_META_APP_ID
@@ -44,6 +44,21 @@ export async function POST(request: Request) {
 
     if (!appId || !appSecret || !systemToken) {
       return NextResponse.json({ error: 'Server is missing Meta App credentials' }, { status: 500 })
+    }
+
+    let accessToken = rawAccessToken;
+
+    // If we received a code (new Oauth flow), exchange it for an access token
+    if (code) {
+      const tokenRes = await fetch(`https://graph.facebook.com/v20.0/oauth/access_token?client_id=${appId}&redirect_uri=&client_secret=${appSecret}&code=${code}`)
+      const tokenData = await tokenRes.json()
+      
+      if (tokenData.access_token) {
+        accessToken = tokenData.access_token
+      } else {
+        console.error('Code exchange failed:', tokenData)
+        return NextResponse.json({ error: 'Failed to exchange OAuth code for access token' }, { status: 400 })
+      }
     }
 
     // 1. Debug the token to find the shared WABA ID
