@@ -865,6 +865,7 @@ export function WhatsAppConfig() {
           )}
         </div>
       </div>
+      </div>
     </section>
   );
 }
