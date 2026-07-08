@@ -664,7 +664,7 @@ export function WhatsAppConfig() {
           </CardContent>
         </Card>
 
-        <Accordion type="single" collapsible className="w-full">
+        <Accordion className="w-full">
           <AccordionItem value="manual-setup" className="border-border rounded-lg border px-4 bg-card/50">
             <AccordionTrigger className="text-muted-foreground hover:text-foreground text-sm font-medium">
               Advanced: Manual Configuration
