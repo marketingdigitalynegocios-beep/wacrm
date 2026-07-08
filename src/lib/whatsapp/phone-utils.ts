@@ -5,6 +5,10 @@
  */
 export function sanitizePhoneForMeta(phone: string): string {
   if (!phone) return ''
+  // Meta opaque IDs or usernames contain letters. Do not strip them.
+  if (/[a-zA-Z]/.test(phone)) {
+    return phone.trim()
+  }
   return phone.replace(/\D/g, '')
 }
 
@@ -14,6 +18,9 @@ export function sanitizePhoneForMeta(phone: string): string {
  */
 export function normalizePhone(phone: string): string {
   if (!phone) return ''
+  if (/[a-zA-Z]/.test(phone)) {
+    return phone.trim().toLowerCase()
+  }
   return phone.replace(/\D/g, '')
 }
 
@@ -26,7 +33,8 @@ export function phonesMatch(phone1: string, phone2: string): boolean {
   const n1 = normalizePhone(phone1)
   const n2 = normalizePhone(phone2)
   if (n1 === n2) return true
-  if (n1.length >= 8 && n2.length >= 8) {
+  // Apply suffix matching only if both are strictly numeric phone numbers
+  if (/^\d+$/.test(n1) && /^\d+$/.test(n2) && n1.length >= 8 && n2.length >= 8) {
     return n1.slice(-8) === n2.slice(-8)
   }
   return false
@@ -37,6 +45,7 @@ export function phonesMatch(phone1: string, phone2: string): boolean {
  * Accepts with or without + prefix.
  */
 export function isValidE164(phone: string): boolean {
+  if (/[a-zA-Z]/.test(phone)) return true // Treat usernames/opaque IDs as valid
   return /^\+?[1-9]\d{6,14}$/.test(phone)
 }
 

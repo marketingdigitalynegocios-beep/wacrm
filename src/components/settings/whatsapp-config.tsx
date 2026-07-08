@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { useAuth } from '@/hooks/use-auth';
+import Script from 'next/script';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -29,6 +30,13 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion';
 import type { WhatsAppConfig as WhatsAppConfigType } from '@/types';
+
+declare global {
+  interface Window {
+    fbAsyncInit: () => void;
+    FB: any;
+  }
+}
 
 const MASKED_TOKEN = '••••••••••••••••';
 
@@ -48,6 +56,8 @@ export function WhatsAppConfig() {
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState(false);
   const [resetting, setResetting] = useState(false);
+  const [isSdkLoaded, setIsSdkLoaded] = useState(false);
+  const [isFbLoggingIn, setIsFbLoggingIn] = useState(false);
   const [showToken, setShowToken] = useState(false);
   const [config, setConfig] = useState<WhatsAppConfigType | null>(null);
   const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>('unknown');
@@ -175,6 +185,22 @@ export function WhatsAppConfig() {
       setLoading(false);
       return;
     }
+    
+    // Initialize Facebook SDK
+    if (typeof window !== 'undefined' && !window.fbAsyncInit) {
+      window.fbAsyncInit = function () {
+        window.FB.init({
+          appId: process.env.NEXT_PUBLIC_META_APP_ID || '',
+          autoLogAppEvents: true,
+          xfbml: true,
+          version: 'v20.0',
+        });
+        setIsSdkLoaded(true);
+      };
+    } else if (typeof window !== 'undefined' && window.FB) {
+      setIsSdkLoaded(true);
+    }
+
     if (loadedAccountIdRef.current === accountId) return;
     loadedAccountIdRef.current = accountId;
     fetchConfig(accountId);
@@ -364,6 +390,52 @@ export function WhatsAppConfig() {
     }
   }
 
+  const handleEmbeddedSignup = () => {
+    if (!window.FB) {
+      toast.error('Facebook SDK not loaded yet. Please wait a moment.');
+      return;
+    }
+    
+    setIsFbLoggingIn(true);
+    window.FB.login(
+      (response: any) => {
+        if (response.authResponse && response.authResponse.accessToken) {
+          const accessToken = response.authResponse.accessToken;
+          // Send to backend
+          fetch('/api/whatsapp/embedded-signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ accessToken }),
+          })
+            .then(res => res.json())
+            .then(data => {
+              if (data.success) {
+                toast.success('Successfully connected WhatsApp Business Account!');
+                if (accountId) fetchConfig(accountId);
+              } else {
+                toast.error(data.error || 'Failed to complete Embedded Signup.');
+              }
+            })
+            .catch(err => {
+              console.error(err);
+              toast.error('An error occurred during signup.');
+            })
+            .finally(() => setIsFbLoggingIn(false));
+        } else {
+          toast.error('User cancelled login or did not fully authorize.');
+          setIsFbLoggingIn(false);
+        }
+      },
+      {
+        config_id: process.env.NEXT_PUBLIC_META_CONFIG_ID,
+        extras: {
+          setup: {},
+          feature: 'whatsapp_embedded_signup'
+        },
+      }
+    );
+  };
+
   function handleCopyWebhookUrl() {
     navigator.clipboard.writeText(webhookUrl);
     toast.success('Webhook URL copied to clipboard');
@@ -387,6 +459,7 @@ export function WhatsAppConfig() {
 
   return (
     <section className="animate-in fade-in-50 duration-200">
+      <Script src="https://connect.facebook.net/en_US/sdk.js" strategy="lazyOnload" />
       <SettingsPanelHead
         title="WhatsApp connection"
         description="Connect your Meta WhatsApp Business API. Credentials, webhook, and setup steps all live here."
@@ -558,15 +631,47 @@ export function WhatsAppConfig() {
         )}
 
         {/* API Credentials */}
-        <Card>
+        <Card className="border-primary/20 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-foreground">API Credentials</CardTitle>
+            <CardTitle className="text-foreground flex items-center gap-2">
+              Connect with Meta
+            </CardTitle>
             <CardDescription className="text-muted-foreground">
-              Enter your Meta WhatsApp Business API credentials.
+              The easiest and official way to connect your WhatsApp Business account.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="space-y-2">
+            <Button
+              onClick={handleEmbeddedSignup}
+              disabled={!isSdkLoaded || isFbLoggingIn}
+              className="w-full bg-[#1877F2] hover:bg-[#1877F2]/90 text-white font-semibold py-6"
+            >
+              {isFbLoggingIn ? (
+                <>
+                  <Loader2 className="size-5 animate-spin mr-2" />
+                  Connecting...
+                </>
+              ) : (
+                <>
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  Login with Facebook
+                </>
+              )}
+            </Button>
+            <p className="text-xs text-muted-foreground text-center mt-2">
+              By clicking this button, you will be prompted to select your WhatsApp Business Account and Phone Number.
+            </p>
+          </CardContent>
+        </Card>
+
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="manual-setup" className="border-border rounded-lg border px-4 bg-card/50">
+            <AccordionTrigger className="text-muted-foreground hover:text-foreground text-sm font-medium">
+              Advanced: Manual Configuration
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="pt-4 space-y-4">
+                <div className="space-y-2">
               <Label className="text-muted-foreground">Phone Number ID</Label>
               <Input
                 placeholder="e.g. 100234567890123"
@@ -666,8 +771,10 @@ export function WhatsAppConfig() {
                 untouched.
               </p>
             </div>
-          </CardContent>
-        </Card>
+            </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
         {/* Webhook URL */}
         <Card>

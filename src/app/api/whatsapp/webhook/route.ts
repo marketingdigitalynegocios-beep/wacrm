@@ -183,11 +183,17 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 401 })
   }
 
-  let body: { entry?: WhatsAppWebhookEntry[] }
+  let body: { entry?: WhatsAppWebhookEntry[], object?: string }
   try {
     body = JSON.parse(rawBody)
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+  }
+
+  // Safeguard for Instagram/Messenger
+  if (body.object === 'instagram' || body.object === 'page') {
+    console.log(`[INFO] Ignorando payload de ${body.object}. Aún no soportado completamente.`);
+    return NextResponse.json({ status: 'ignored', reason: 'Platform not supported yet' }, { status: 200 })
   }
 
   // Process AFTER the response so we ack Meta within their ~20s timeout
