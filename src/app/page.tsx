@@ -180,7 +180,11 @@ export default function LandingPage() {
                 <ul className="mt-8 space-y-4">
                   <li className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-primary" />
-                    <span className="text-muted-foreground">Bandeja multiusuario (hasta 3 agentes)</span>
+                    <span className="text-muted-foreground">Bandeja multiusuario (hasta 2 miembros)</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                    <span className="text-muted-foreground">1 Agente de Inteligencia Artificial</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-primary" />
@@ -216,11 +220,11 @@ export default function LandingPage() {
                 <ul className="mt-8 space-y-4">
                   <li className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-primary" />
-                    <span className="text-muted-foreground">Agentes de equipo ilimitados</span>
+                    <span className="text-muted-foreground">Bandeja multiusuario (hasta 3 miembros)</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-primary" />
-                    <span className="text-muted-foreground">Agentes de Inteligencia Artificial ilimitados</span>
+                    <span className="text-muted-foreground">1 Agente de Inteligencia Artificial</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <CheckCircle2 className="h-5 w-5 text-primary" />
