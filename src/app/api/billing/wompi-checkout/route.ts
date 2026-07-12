@@ -65,26 +65,14 @@ export async function POST(req: Request) {
       signature = crypto.createHash('sha256').update(stringToHash).digest('hex');
     }
 
-    // Determine the base URL for the redirect
-    const origin = req.headers.get('origin') || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-    const redirectUrl = `${origin}/settings?tab=billing`;
-
-    // Construct the Wompi Web Checkout URL
-    const params = new URLSearchParams({
-      'public-key': publicKey,
-      'currency': currency,
-      'amount-in-cents': amountInCents.toString(),
-      'reference': reference,
-      'redirect-url': redirectUrl,
+    // Return payload for the Wompi Widget instead of a redirect URL
+    return NextResponse.json({ 
+      publicKey,
+      currency,
+      amountInCents,
+      reference,
+      signature
     });
-
-    if (signature) {
-      params.append('signature:integrity', signature);
-    }
-
-    const checkoutUrl = `https://checkout.wompi.co/p/?${params.toString()}`;
-
-    return NextResponse.json({ checkoutUrl });
 
   } catch (error: any) {
     console.error('[Wompi Checkout Error]:', error);

@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks/use-auth';
 import { Button } from '@/components/ui/button';
 import { CreditCard, CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
+import Script from 'next/script';
 
 export function BillingPanel() {
   const { accountRole, account } = useAuth();
@@ -30,11 +31,28 @@ export function BillingPanel() {
         return;
       }
 
-      const data = await res.json();
-      if (data.checkoutUrl) {
-        window.location.href = data.checkoutUrl;
+      const payload = await res.json();
+      if (payload.publicKey && payload.reference) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const checkout = new window.WidgetCheckout({
+          currency: payload.currency,
+          amountInCents: payload.amountInCents,
+          reference: payload.reference,
+          publicKey: payload.publicKey,
+          signature: payload.signature ? { integrity: payload.signature } : undefined,
+        });
+
+        checkout.open((result: any) => {
+          console.log('Transaction Result:', result);
+          setIsLoading(false);
+          if (result && result.transaction && result.transaction.status === 'APPROVED') {
+            alert('¡Pago aprobado! Tu plan se actualizará en unos instantes.');
+            window.location.reload();
+          }
+        });
       } else {
-        alert('No se pudo obtener la URL de pago.');
+        alert('No se pudo obtener la información de pago.');
         setIsLoading(false);
       }
     } catch (err) {
@@ -57,6 +75,7 @@ export function BillingPanel() {
 
   return (
     <div className="space-y-6">
+      <Script src="https://checkout.wompi.co/widget.js" strategy="lazyOnload" />
       <div className="rounded-xl border border-border bg-card p-6">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
