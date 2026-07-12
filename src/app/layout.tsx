@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/hooks/use-theme";
 import { ThemedToaster } from "@/components/themed-toaster";
+import { I18nProvider } from "@/i18n/provider";
 import {
   DEFAULT_MODE,
   DEFAULT_THEME,
@@ -19,11 +20,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "wacrm",
-    template: "%s — wacrm",
-  },
-  description: "Self-hostable CRM template for WhatsApp.",
+  title: "ChatFlowAI",
+  description: "ChatFlowAI - CRM para WhatsApp",
   robots: {
     index: false,
     follow: false,
@@ -104,8 +102,10 @@ export default function RootLayout({
       </head>
       <body className="min-h-full bg-background text-foreground font-sans">
         <ThemeProvider>
-          {children}
-          <ThemedToaster />
+          <I18nProvider>
+            {children}
+            <ThemedToaster />
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

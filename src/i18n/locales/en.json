@@ -1,0 +1,77 @@
+{
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "inbox": "Inbox",
+    "contacts": "Contacts",
+    "pipelines": "Pipelines",
+    "broadcasts": "Broadcasts",
+    "automations": "Automations",
+    "settings": "Settings"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "english": "English",
+    "spanish": "Spanish"
+  },
+  "common": {
+    "loading": "Loading..."
+  },
+  "header": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "sign_out": "Sign out"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "title_invite": "Sign in to accept",
+      "desc": "Sign in to your account",
+      "desc_invite": "Sign in and we'll take you to the invitation.",
+      "email_label": "Email",
+      "email_placeholder": "you@example.com",
+      "password_label": "Password",
+      "password_placeholder": "Enter your password",
+      "forgot_password": "Forgot password?",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "no_account": "Don't have an account?",
+      "create_account": "Create account"
+    },
+    "signup": {
+      "title": "Create account",
+      "title_invite": "Create account & join",
+      "desc": "Get started with ChatFlowAI",
+      "desc_invite": "Verify your email, then accept the invitation to join your team.",
+      "full_name_label": "Full name",
+      "full_name_placeholder": "John Doe",
+      "email_label": "Email",
+      "email_placeholder": "you@example.com",
+      "password_label": "Password",
+      "password_placeholder": "At least 6 characters",
+      "confirm_password_label": "Confirm password",
+      "confirm_password_placeholder": "Repeat your password",
+      "submit": "Create account",
+      "submitting": "Creating account...",
+      "has_account": "Already have an account?",
+      "sign_in": "Sign in",
+      "check_email_title": "Check your email",
+      "check_email_desc_1": "We've sent a confirmation link to ",
+      "check_email_desc_2": ". Please check your inbox and click the link to verify your account.",
+      "back_to_signin": "Back to sign in",
+      "err_password_match": "Passwords do not match",
+      "err_password_length": "Password must be at least 6 characters"
+    },
+    "forgot_password": {
+      "title": "Reset password",
+      "desc": "Enter your email and we'll send you a link to reset your password.",
+      "email_label": "Email",
+      "email_placeholder": "you@example.com",
+      "submit": "Send reset link",
+      "submitting": "Sending...",
+      "back_to_login": "Back to sign in",
+      "success_title": "Check your email",
+      "success_desc": "If an account exists with that email, we sent a password reset link."
+    }
+  }
+}

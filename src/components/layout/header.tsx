@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/use-auth";
 import { LogOut, Menu, Settings as SettingsIcon, User } from "lucide-react";
 import {
@@ -46,7 +47,11 @@ interface HeaderProps {
 export function Header({ onOpenSidebar }: HeaderProps) {
   const pathname = usePathname();
   const { profile, signOut } = useAuth();
-  const title = getPageTitle(pathname);
+  const { t } = useTranslation();
+  
+  // Get title from dictionary, default to standard title
+  const rawTitle = getPageTitle(pathname);
+  const title = t(`sidebar.${rawTitle.toLowerCase()}`, { defaultValue: rawTitle });
 
   const initial =
     profile?.full_name?.charAt(0)?.toUpperCase() ??
@@ -116,7 +121,7 @@ export function Header({ onOpenSidebar }: HeaderProps) {
             }
           >
             <User className="size-4" />
-            Profile
+            {t("header.profile")}
           </DropdownMenuItem>
           <DropdownMenuItem
             render={
@@ -127,7 +132,7 @@ export function Header({ onOpenSidebar }: HeaderProps) {
             }
           >
             <SettingsIcon className="size-4" />
-            Settings
+            {t("header.settings")}
           </DropdownMenuItem>
           <DropdownMenuSeparator className="bg-border" />
           <DropdownMenuItem
@@ -135,7 +140,7 @@ export function Header({ onOpenSidebar }: HeaderProps) {
             className="text-popover-foreground focus:bg-accent focus:text-accent-foreground"
           >
             <LogOut className="size-4" />
-            Sign out
+            {t("header.sign_out")}
           </DropdownMenuItem>
         </DropdownMenuContent>
         </DropdownMenu>

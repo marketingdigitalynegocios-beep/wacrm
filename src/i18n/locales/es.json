@@ -1,0 +1,77 @@
+{
+  "sidebar": {
+    "dashboard": "Tablero",
+    "inbox": "Bandeja de Entrada",
+    "contacts": "Contactos",
+    "pipelines": "Embudos",
+    "broadcasts": "Difusiones",
+    "automations": "Automatizaciones",
+    "settings": "Configuración"
+  },
+  "settings": {
+    "title": "Configuración",
+    "language": "Idioma",
+    "english": "Inglés",
+    "spanish": "Español"
+  },
+  "common": {
+    "loading": "Cargando..."
+  },
+  "header": {
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "sign_out": "Cerrar sesión"
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido de nuevo",
+      "title_invite": "Inicia sesión para aceptar",
+      "desc": "Inicia sesión en tu cuenta",
+      "desc_invite": "Inicia sesión y te llevaremos a tu invitación.",
+      "email_label": "Correo electrónico",
+      "email_placeholder": "tu@ejemplo.com",
+      "password_label": "Contraseña",
+      "password_placeholder": "Ingresa tu contraseña",
+      "forgot_password": "¿Olvidaste tu contraseña?",
+      "submit": "Iniciar sesión",
+      "submitting": "Iniciando sesión...",
+      "no_account": "¿No tienes una cuenta?",
+      "create_account": "Crear cuenta"
+    },
+    "signup": {
+      "title": "Crear cuenta",
+      "title_invite": "Crear cuenta y unirse",
+      "desc": "Comienza con ChatFlowAI",
+      "desc_invite": "Verifica tu correo, luego acepta la invitación para unirte a tu equipo.",
+      "full_name_label": "Nombre completo",
+      "full_name_placeholder": "Juan Pérez",
+      "email_label": "Correo electrónico",
+      "email_placeholder": "tu@ejemplo.com",
+      "password_label": "Contraseña",
+      "password_placeholder": "Al menos 6 caracteres",
+      "confirm_password_label": "Confirmar contraseña",
+      "confirm_password_placeholder": "Repite tu contraseña",
+      "submit": "Crear cuenta",
+      "submitting": "Creando cuenta...",
+      "has_account": "¿Ya tienes una cuenta?",
+      "sign_in": "Iniciar sesión",
+      "check_email_title": "Revisa tu correo",
+      "check_email_desc_1": "Hemos enviado un enlace de confirmación a ",
+      "check_email_desc_2": ". Por favor, revisa tu bandeja de entrada y haz clic en el enlace para verificar tu cuenta.",
+      "back_to_signin": "Volver a Iniciar sesión",
+      "err_password_match": "Las contraseñas no coinciden",
+      "err_password_length": "La contraseña debe tener al menos 6 caracteres"
+    },
+    "forgot_password": {
+      "title": "Restablecer contraseña",
+      "desc": "Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.",
+      "email_label": "Correo electrónico",
+      "email_placeholder": "tu@ejemplo.com",
+      "submit": "Enviar enlace de recuperación",
+      "submitting": "Enviando...",
+      "back_to_login": "Volver a Iniciar sesión",
+      "success_title": "Revisa tu correo",
+      "success_desc": "Si existe una cuenta con ese correo, te hemos enviado un enlace para restablecer la contraseña."
+    }
+  }
+}
