@@ -36,14 +36,20 @@ export async function POST(req: Request) {
 
     console.log('[Wompi Webhook] Firma validada exitosamente.');
 
-    // Reference expected format for subscriptions: accountId_planKey
-    // Example: "123e4567-e89b-12d3-a456-426614174000_profesional"
+    // Reference expected format for subscriptions: accountId_planKey_uuid
+    // Example: "123e4567-e89b-12d3-a456-426614174000_profesional_d9a8b7c6..."
     if (!reference || !reference.includes('_')) {
       console.error('[Wompi Webhook] Referencia inválida o no corresponde a una suscripción SaaS:', reference);
       return NextResponse.json({ error: 'Invalid reference format' }, { status: 400 });
     }
 
-    const [accountId, planKey] = reference.split('_');
+    const parts = reference.split('_');
+    if (parts.length < 2) {
+      console.error('[Wompi Webhook] La referencia no contiene cuenta y plan:', reference);
+      return NextResponse.json({ error: 'Reference missing account or plan' }, { status: 400 });
+    }
+    
+    const [accountId, planKey] = parts;
     const validPlans = ['emprendedor', 'profesional', 'free'];
     const planName = validPlans.includes(planKey) ? planKey : 'free';
 
