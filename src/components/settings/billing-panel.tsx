@@ -6,12 +6,12 @@ import { CreditCard, CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
 
 export function BillingPanel() {
-  const { accountRole, currentAccount } = useAuth();
+  const { accountRole, account } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   // Fallback si useAuth no devuelve el plan
   // Se requiere que use-auth devuelva account.plan_tier en un paso futuro
-  const plan = 'free'; // default temporal
+  const plan: string = (account as any)?.plan_tier || 'free'; // default temporal
 
   const handleSubscribe = async (planTier: string) => {
     setIsLoading(true);
