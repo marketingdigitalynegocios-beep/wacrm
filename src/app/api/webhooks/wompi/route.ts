@@ -36,20 +36,25 @@ export async function POST(req: Request) {
 
     console.log('[Wompi Webhook] Firma validada exitosamente.');
 
-    // Reference expected format for subscriptions: accountId_planKey_uuid
-    // Example: "123e4567-e89b-12d3-a456-426614174000_profesional_d9a8b7c6..."
+    // Reference expected format for subscriptions: PREFIX_accountId_planKey_uuid
+    // Example: "CHATFLOW_123e4567-e89b-12d3-a456-426614174000_profesional_d9a8b7c6..."
+    const projectPrefix = process.env.WOMPI_PROJECT_PREFIX || 'CHATFLOW';
+
     if (!reference || !reference.includes('_')) {
       console.error('[Wompi Webhook] Referencia inválida o no corresponde a una suscripción SaaS:', reference);
       return NextResponse.json({ error: 'Invalid reference format' }, { status: 400 });
     }
 
     const parts = reference.split('_');
-    if (parts.length < 2) {
-      console.error('[Wompi Webhook] La referencia no contiene cuenta y plan:', reference);
-      return NextResponse.json({ error: 'Reference missing account or plan' }, { status: 400 });
+    if (parts.length < 3 || parts[0] !== projectPrefix) {
+      console.error(`[Wompi Webhook] La referencia no pertenece a este proyecto (${projectPrefix}) o está malformada:`, reference);
+      // Retornar 200 en vez de 400 es una buena práctica para que Wompi/Router no reintente fallos de enrutamiento
+      return NextResponse.json({ ignored: true, reason: 'Not matching project prefix' });
     }
     
-    const [accountId, planKey] = parts;
+    // parts[0] = PREFIX, parts[1] = accountId, parts[2] = planKey, parts[3] = uuid
+    const accountId = parts[1];
+    const planKey = parts[2];
     const validPlans = ['emprendedor', 'profesional', 'free'];
     const planName = validPlans.includes(planKey) ? planKey : 'free';
 

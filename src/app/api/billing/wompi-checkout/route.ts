@@ -42,9 +42,13 @@ export async function POST(req: Request) {
     const currency = 'COP';
     const uuid = crypto.randomUUID();
     
-    // Format: accountId_planKey_uuid 
-    // This allows the webhook to extract the account and plan easily, while being unique
-    const reference = `${profile.account_id}_${plan}_${uuid}`;
+    // Prefix allows a central Webhook Router (like watienda) to forward the event to this project.
+    // Uses WOMPI_PROJECT_PREFIX env var, defaults to 'CHATFLOW'
+    const projectPrefix = process.env.WOMPI_PROJECT_PREFIX || 'CHATFLOW';
+    
+    // Format: PREFIX_accountId_planKey_uuid 
+    // This allows the webhook router to route it, and our webhook to extract the account and plan
+    const reference = `${projectPrefix}_${profile.account_id}_${plan}_${uuid}`;
 
     const publicKey = process.env.NEXT_PUBLIC_WOMPI_PUBLIC_KEY;
     const integritySecret = process.env.WOMPI_INTEGRITY_SECRET;
