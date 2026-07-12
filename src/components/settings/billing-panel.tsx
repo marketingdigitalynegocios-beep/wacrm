@@ -16,12 +16,30 @@ export function BillingPanel() {
   const handleSubscribe = async (planTier: string) => {
     setIsLoading(true);
     try {
-      // Create Wompi Checkout integration here
-      // For now, simple alert as placeholder
-      alert(`Implementación de checkout de Wompi para plan: ${planTier}`);
+      const res = await fetch('/api/billing/wompi-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan: planTier }),
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        console.error('Error initiating checkout:', error);
+        alert('Hubo un error al iniciar el pago. Inténtalo de nuevo.');
+        setIsLoading(false);
+        return;
+      }
+
+      const data = await res.json();
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      } else {
+        alert('No se pudo obtener la URL de pago.');
+        setIsLoading(false);
+      }
     } catch (err) {
       console.error(err);
-    } finally {
+      alert('Error de conexión.');
       setIsLoading(false);
     }
   };
