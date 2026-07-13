@@ -73,5 +73,80 @@
       "success_title": "Revisa tu correo",
       "success_desc": "Si existe una cuenta con ese correo, te hemos enviado un enlace para restablecer la contraseña."
     }
+  },
+  "dashboard": {
+    "title": "Tablero",
+    "subtitle": "Análisis en vivo de conversaciones, contactos, embudos, difusiones y automatizaciones.",
+    "metrics": {
+      "active_conversations": "Conversaciones Activas",
+      "new_contacts": "Nuevos Contactos Hoy",
+      "open_deals_value": "Valor de Embudos Abiertos",
+      "messages_sent": "Mensajes Enviados Hoy",
+      "new_today_vs_yesterday": "nuevos hoy vs ayer",
+      "vs_yesterday": "vs ayer",
+      "open_deal": "trato abierto",
+      "open_deals": "tratos abiertos",
+      "no_change": "Sin cambios"
+    },
+    "quick_actions": {
+      "new_contact": "Nuevo Contacto",
+      "new_deal": "Nuevo Trato",
+      "new_broadcast": "Nueva Difusión",
+      "new_automation": "Nueva Automatización"
+    },
+    "conversations_chart": {
+      "title": "Conversaciones a lo largo del tiempo",
+      "subtitle": "Volumen diario de mensajes por dirección",
+      "days": "{{count}} días",
+      "empty_title": "Sin actividad de mensajes en este rango",
+      "empty_hint": "Envía o recibe mensajes para comenzar a poblar este gráfico.",
+      "incoming": "Entrantes",
+      "outgoing": "Salientes",
+      "incoming_count": "{{count}} entrantes",
+      "outgoing_count": "{{count}} salientes"
+    },
+    "pipeline_donut": {
+      "title": "Valor del Embudo",
+      "subtitle": "Tratos abiertos por etapa",
+      "empty_title": "Aún no hay tratos abiertos",
+      "empty_hint": "Crea tratos en Embudos para ver el desglose por etapas aquí.",
+      "deal": "{{count}} trato",
+      "deals": "{{count}} tratos",
+      "total": "Total",
+      "aria_label": "Valor del embudo por etapa"
+    },
+    "response_time_chart": {
+      "title": "Tiempo Promedio de Primera Respuesta",
+      "subtitle": "Minutos para responder al primer mensaje de un cliente, por día de la semana",
+      "target": "objetivo {{threshold}}m",
+      "this_week": "Esta semana:",
+      "last_week": "Semana pasada:",
+      "empty_title": "Aún no se han registrado respuestas",
+      "empty_hint": "Este gráfico se llenará a medida que respondas a los mensajes.",
+      "avg_minutes": "Minutos prom.",
+      "dow": {
+        "mon": "Lun",
+        "tue": "Mar",
+        "wed": "Mié",
+        "thu": "Jue",
+        "fri": "Vie",
+        "sat": "Sáb",
+        "sun": "Dom"
+      }
+    },
+    "activity_feed": {
+      "title": "Actividad Reciente",
+      "view_all": "Ver todo →",
+      "empty_title": "Sin actividad aún",
+      "empty_hint": "La actividad de mensajes, tratos, difusiones y automatizaciones aparecerá aquí.",
+      "showing": "Mostrando {{visible}} de {{total}}{{plus}}",
+      "show": "Mostrar",
+      "relative_time": {
+        "seconds": "hace {{count}}s",
+        "minutes": "hace {{count}}m",
+        "hours": "hace {{count}}h",
+        "days": "hace {{count}}d"
+      }
+    }
   }
 }

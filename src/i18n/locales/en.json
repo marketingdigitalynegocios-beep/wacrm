@@ -73,5 +73,80 @@
       "success_title": "Check your email",
       "success_desc": "If an account exists with that email, we sent a password reset link."
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Live analytics across conversations, contacts, deals, broadcasts, and automations.",
+    "metrics": {
+      "active_conversations": "Active Conversations",
+      "new_contacts": "New Contacts Today",
+      "open_deals_value": "Open Deals Value",
+      "messages_sent": "Messages Sent Today",
+      "new_today_vs_yesterday": "new today vs yesterday",
+      "vs_yesterday": "vs yesterday",
+      "open_deal": "open deal",
+      "open_deals": "open deals",
+      "no_change": "No change"
+    },
+    "quick_actions": {
+      "new_contact": "New Contact",
+      "new_deal": "New Deal",
+      "new_broadcast": "New Broadcast",
+      "new_automation": "New Automation"
+    },
+    "conversations_chart": {
+      "title": "Conversations Over Time",
+      "subtitle": "Daily message volume by direction",
+      "days": "{{count}} days",
+      "empty_title": "No message activity in this range",
+      "empty_hint": "Send or receive messages to start populating this chart.",
+      "incoming": "Incoming",
+      "outgoing": "Outgoing",
+      "incoming_count": "{{count}} incoming",
+      "outgoing_count": "{{count}} outgoing"
+    },
+    "pipeline_donut": {
+      "title": "Pipeline Value",
+      "subtitle": "Open deals by stage",
+      "empty_title": "No open deals yet",
+      "empty_hint": "Create deals in Pipelines to see stage breakdowns here.",
+      "deal": "{{count}} deal",
+      "deals": "{{count}} deals",
+      "total": "Total",
+      "aria_label": "Pipeline value by stage"
+    },
+    "response_time_chart": {
+      "title": "Average First Response Time",
+      "subtitle": "Minutes to reply to a customer's first unreplied message, by weekday",
+      "target": "target {{threshold}}m",
+      "this_week": "This week:",
+      "last_week": "Last week:",
+      "empty_title": "No replies recorded yet",
+      "empty_hint": "This chart fills in as you reply to customer messages.",
+      "avg_minutes": "Avg minutes",
+      "dow": {
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat",
+        "sun": "Sun"
+      }
+    },
+    "activity_feed": {
+      "title": "Recent Activity",
+      "view_all": "View all →",
+      "empty_title": "No activity yet",
+      "empty_hint": "Activity from messages, deals, broadcasts, and automations will appear here.",
+      "showing": "Showing {{visible}} of {{total}}{{plus}}",
+      "show": "Show",
+      "relative_time": {
+        "seconds": "{{count}}s ago",
+        "minutes": "{{count}}m ago",
+        "hours": "{{count}}h ago",
+        "days": "{{count}}d ago"
+      }
+    }
   }
 }

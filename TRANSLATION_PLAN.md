@@ -11,13 +11,13 @@ Iremos marcando cada sección a medida que la vayamos completando.
 - [x] Traducción de Cabecera Superior (Header y Menú de Perfil)
 
 ## 2. Fase Dashboard (Tablero Principal) ⏳
-- [ ] Extraer y traducir textos de `src/app/(dashboard)/dashboard/page.tsx`
-- [ ] Traducir componente `MetricCard` (Tarjetas de métricas)
-- [ ] Traducir componente `QuickActions` (Acciones Rápidas)
-- [ ] Traducir componente `ConversationsChart` (Gráfico de Conversaciones)
-- [ ] Traducir componente `PipelineDonut` (Gráfico de Embudos)
-- [ ] Traducir componente `ResponseTimeChart` (Gráfico de Tiempos)
-- [ ] Traducir componente `ActivityFeed` (Feed de actividad)
+- [x] Extraer y traducir textos de `src/app/(dashboard)/dashboard/page.tsx`
+- [x] Traducir componente `MetricCard` (Tarjetas de métricas)
+- [x] Traducir componente `QuickActions` (Acciones Rápidas)
+- [x] Traducir componente `ConversationsChart` (Gráfico de Conversaciones)
+- [x] Traducir componente `PipelineDonut` (Gráfico de Embudos)
+- [x] Traducir componente `ResponseTimeChart` (Gráfico de Tiempos)
+- [x] Traducir componente `ActivityFeed` (Feed de actividad)
 
 ## 3. Fase Inbox (Bandeja de Entrada)
 - [ ] Extraer textos de `src/app/(dashboard)/inbox` (Estructura principal)
