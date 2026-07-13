@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import {
   Workflow,
@@ -82,11 +83,13 @@ const TEMPLATE_ICONS = {
 } as const;
 
 export default function FlowsPage() {
+  const { t } = useTranslation();
   const router = useRouter();
   const canCreate = useCan("send-messages");
   const [flows, setFlows] = useState<FlowRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [createOpen, setCreateOpen] = useState(false);
+  const [pendingDelete, setPendingDelete] = useState<FlowRow | null>(null);
   const [newName, setNewName] = useState("");
   const [creating, setCreating] = useState(false);
   const [templates, setTemplates] = useState<TemplateSummary[]>([]);
@@ -139,7 +142,10 @@ export default function FlowsPage() {
           trigger_config: { keywords: [] },
         }),
       });
-      if (!res.ok) throw new Error(`Create failed: ${res.status}`);
+      if (!res.ok) {
+        toast.error(t("flows.failed_create"));
+        return;
+      }
       const json = (await res.json()) as { flow: FlowRow };
       setCreateOpen(false);
       setNewName("");
@@ -168,26 +174,29 @@ export default function FlowsPage() {
       setCreateOpen(false);
       router.push(`/flows/${json.flow.id}`);
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Clone failed";
+      const msg = err instanceof Error ? err.message : t("flows.failed_load");
       toast.error(msg);
     } finally {
       setCreating(false);
     }
   }
 
-  async function handleDelete(flow: FlowRow) {
-    const yes = window.confirm(
-      `Delete "${flow.name}"? Any active runs will end immediately.`,
-    );
-    if (!yes) return;
+  async function handleDelete() {
+    if (!pendingDelete) return;
     try {
-      const res = await fetch(`/api/flows/${flow.id}`, { method: "DELETE" });
-      if (!res.ok) throw new Error(`Delete failed: ${res.status}`);
-      setFlows((prev) => prev.filter((f) => f.id !== flow.id));
-      toast.success("Flow deleted.");
+      const res = await fetch(`/api/flows/${pendingDelete.id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        toast.error(t("flows.failed_delete"));
+        return;
+      }
+      setFlows((prev) => prev.filter((f) => f.id !== pendingDelete?.id));
+      toast.success(t("flows.deleted"));
+      setPendingDelete(null);
     } catch (err) {
       console.error(err);
-      toast.error("Couldn't delete flow.");
+      toast.error(t("flows.failed_delete"));
     }
   }
 
@@ -204,14 +213,12 @@ export default function FlowsPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-semibold text-foreground">Flows</h1>
-            <span className="inline-flex items-center rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-300">
-              Beta
-            </span>
+            <h1 className="text-2xl font-semibold text-foreground">
+              {t("flows.title")}
+            </h1>
           </div>
           <p className="mt-1 text-sm text-muted-foreground">
-            Build branching, button-driven WhatsApp conversations. Useful for
-            menus, FAQs, and triage before a human steps in.
+            {t("flows.description")}
           </p>
         </div>
         <GatedButton
@@ -220,15 +227,12 @@ export default function FlowsPage() {
           onClick={() => setCreateOpen(true)}
         >
           <Plus className="h-4 w-4" />
-          New flow
+          {t("flows.create")}
         </GatedButton>
       </header>
 
       {flows.length === 0 ? (
-        <EmptyState
-          onCreate={() => setCreateOpen(true)}
-          canCreate={canCreate}
-        />
+        <EmptyState onCreate={() => setCreateOpen(true)} canCreate={canCreate} />
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {flows.map((flow) => (
@@ -236,17 +240,13 @@ export default function FlowsPage() {
               key={flow.id}
               flow={flow}
               onEdit={() => router.push(`/flows/${flow.id}`)}
-              onDelete={() => handleDelete(flow)}
+              onDelete={() => setPendingDelete(flow)}
             />
           ))}
         </div>
       )}
 
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
-        {/* `sm:max-w-4xl` not `max-w-4xl` — shadcn's DialogContent has
-            `sm:max-w-sm` baked into its default classes. Without the
-            sm: prefix our override applies at base only and the
-            sm-scoped 384px wins at every real desktop breakpoint. */}
         <DialogContent className="sm:max-w-4xl bg-popover text-popover-foreground">
           <DialogHeader>
             <DialogTitle>Create a new flow</DialogTitle>
@@ -261,25 +261,26 @@ export default function FlowsPage() {
                 Start from a template
               </p>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {templates.map((t) => {
-                  const Icon = TEMPLATE_ICONS[t.icon] ?? FileText;
+                {templates.map((tItem) => {
+                  const Icon = TEMPLATE_ICONS[tItem.icon] ?? FileText;
                   return (
                     <button
-                      key={t.slug}
+                      key={tItem.slug}
                       type="button"
-                      onClick={() => handleUseTemplate(t.slug)}
+                      onClick={() => handleUseTemplate(tItem.slug)}
                       disabled={creating}
                       className="flex flex-col gap-2.5 rounded-lg border border-border bg-background p-4 text-left transition-colors hover:border-primary/40 hover:bg-muted disabled:opacity-50"
                     >
                       <Icon className="h-5 w-5 text-primary" />
                       <span className="text-sm font-semibold text-popover-foreground">
-                        {t.name}
+                        {tItem.name}
                       </span>
                       <span className="text-xs leading-relaxed text-muted-foreground">
-                        {t.description}
+                        {tItem.description}
                       </span>
                       <span className="mt-auto border-t border-border pt-2 text-[11px] text-muted-foreground">
-                        {t.node_count} {t.node_count === 1 ? "node" : "nodes"}
+                        {tItem.node_count}{" "}
+                        {tItem.node_count === 1 ? "node" : "nodes"}
                       </span>
                     </button>
                   );
@@ -318,6 +319,31 @@ export default function FlowsPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <Dialog
+        open={!!pendingDelete}
+        onOpenChange={(v) => !v && setPendingDelete(null)}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("flows.delete_title")}</DialogTitle>
+            <DialogDescription>
+              {t("flows.delete_confirm", { name: pendingDelete?.name })}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="ghost"
+              onClick={() => setPendingDelete(null)}
+            >
+              {t("flows.cancel")}
+            </Button>
+            <Button variant="destructive" onClick={handleDelete}>
+              {t("flows.delete")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
@@ -329,18 +355,17 @@ function EmptyState({
   onCreate: () => void;
   canCreate: boolean;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border bg-card/50 px-6 py-16 text-center">
       <div className="flex h-14 w-14 items-center justify-center rounded-full bg-muted">
         <Workflow className="h-6 w-6 text-muted-foreground" />
       </div>
       <h2 className="mt-4 text-base font-medium text-foreground">
-        No flows yet
+        {t("flows.no_flows")}
       </h2>
       <p className="mt-1 max-w-md text-sm text-muted-foreground">
-        Build your first conversation — a welcome menu, an order lookup, an FAQ
-        bot. Customers tap buttons; the bot routes them to the right answer (or
-        the right agent).
+        {t("flows.empty_desc")}
       </p>
       <GatedButton
         canAct={canCreate}
@@ -349,7 +374,7 @@ function EmptyState({
         className="mt-5"
       >
         <Plus className="h-4 w-4" />
-        Create your first flow
+        {t("flows.create_first")}
       </GatedButton>
     </div>
   );
@@ -364,7 +389,8 @@ function FlowCard({
   onEdit: () => void;
   onDelete: () => void;
 }) {
-  const triggerSummary = describeTrigger(flow);
+  const { t } = useTranslation();
+  const triggerSummary = describeTrigger(flow, t);
   const StatusIcon =
     flow.status === "active"
       ? PlayCircle
@@ -388,7 +414,9 @@ function FlowCard({
           )}
         >
           <StatusIcon className="h-3 w-3" />
-          {STATUS_LABELS[flow.status]}
+          {t(`flows.status_${flow.status}`, {
+            defaultValue: STATUS_LABELS[flow.status],
+          })}
         </Badge>
       </div>
 
@@ -399,14 +427,15 @@ function FlowCard({
       <div className="mt-4 flex items-center gap-3 text-[11px] text-muted-foreground">
         <span className="inline-flex items-center gap-1">
           <MessageSquare className="h-3 w-3" />
-          {flow.execution_count} {flow.execution_count === 1 ? "run" : "runs"}
+          {flow.execution_count}{" "}
+          {flow.execution_count === 1 ? t("flows.run") : t("flows.runs")}
         </span>
       </div>
 
       <div className="mt-4 flex items-center justify-end gap-2 border-t border-border pt-3">
         <Button variant="ghost" size="sm" onClick={onEdit}>
           <Pencil className="h-3.5 w-3.5" />
-          Edit
+          {t("flows.edit")}
         </Button>
         <Button
           variant="ghost"
@@ -415,23 +444,23 @@ function FlowCard({
           className="text-red-400 hover:bg-red-500/10 hover:text-red-300"
         >
           <Trash2 className="h-3.5 w-3.5" />
-          Delete
+          {t("flows.delete")}
         </Button>
       </div>
     </div>
   );
 }
 
-function describeTrigger(flow: FlowRow): string {
+function describeTrigger(flow: FlowRow, t: any): string {
   if (flow.trigger_type === "keyword") {
-    const keywords = Array.isArray(flow.trigger_config.keywords)
-      ? (flow.trigger_config.keywords as string[])
-      : [];
-    if (keywords.length === 0) return "Triggers on keyword (none set)";
-    return `Triggers on: ${keywords.join(", ")}`;
+    const keywords = (flow.trigger_config as any)?.keywords || [];
+    if (keywords.length === 0) {
+      return t("flows.trigger_keyword_none");
+    }
+    return `${t("flows.trigger_keyword")} ${keywords.join(", ")}`;
+  } else if (flow.trigger_type === "first_inbound_message") {
+    return t("flows.trigger_first_message");
+  } else {
+    return t("flows.trigger_manual");
   }
-  if (flow.trigger_type === "first_inbound_message") {
-    return "Triggers on a contact's first-ever inbound message";
-  }
-  return "Manual trigger";
 }

@@ -2,17 +2,356 @@
   "sidebar": {
     "dashboard": "Dashboard",
     "inbox": "Inbox",
+    "notifications": "Notifications",
     "contacts": "Contacts",
     "pipelines": "Pipelines",
     "broadcasts": "Broadcasts",
     "automations": "Automations",
-    "settings": "Settings"
+    "settings": "Settings",
+    "flows": "Flows",
+    "agents": "AI Agents"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "subtitle": "Activity that needs your attention.",
+    "mark_all_read": "Mark all as read",
+    "empty_title": "No notifications",
+    "empty_hint": "You're all caught up! We'll let you know when there's activity.",
+    "types": {
+      "conversation_assigned": "You were assigned a conversation",
+      "unknown": "New notification"
+    },
+    "toasts": {
+      "failed_mark_read": "Failed to mark notification as read",
+      "failed_mark_all_read": "Failed to mark notifications as read"
+    }
   },
   "settings": {
     "title": "Settings",
     "language": "Language",
     "english": "English",
-    "spanish": "Spanish"
+    "spanish": "Spanish",
+    "layout": {
+      "title": "Settings",
+      "subtitle": "Everything in one place — your account and your workspace. Pick a section to manage it."
+    },
+    "groups": {
+      "account": "Account",
+      "workspace": "Workspace"
+    },
+    "roles": {
+      "owner": "Owner",
+      "admin": "Admin",
+      "agent": "Agent",
+      "viewer": "Viewer"
+    },
+    "sections": {
+      "overview": "Overview",
+      "profile": "Your profile",
+      "security": "Login & security",
+      "appearance": "Appearance",
+      "whatsapp": "WhatsApp",
+      "templates": "Templates",
+      "fields": "Fields & tags",
+      "deals": "Deals & currency",
+      "members": "Team members",
+      "api": "API keys",
+      "billing": "Subscription & Billing"
+    },
+    "overview": {
+      "whatsapp": {
+        "not_setup": "Not set up yet",
+        "connected": "Connected",
+        "needs_reconnecting": "Needs reconnecting"
+      },
+      "members": {
+        "view_all": "View team members",
+        "count_one": "{{count}} member",
+        "count_other": "{{count}} members",
+        "pending_one": "{{count}} pending invite",
+        "pending_other": "{{count}} pending invites"
+      },
+      "templates": {
+        "manage": "Manage message templates",
+        "count_one": "{{count}} template",
+        "count_other": "{{count}} templates",
+        "pending": "{{count}} pending review"
+      },
+      "fields": {
+        "title": "Tags and custom fields",
+        "tags_one": "{{count}} tag",
+        "tags_other": "{{count}} tags",
+        "custom_one": "{{count}} custom field",
+        "custom_other": "{{count}} custom fields"
+      },
+      "appearance": {
+        "subtitle": "{{mode}} mode · {{theme}} accent"
+      },
+      "loading": "Loading…"
+    },
+    "profile": {
+      "title": "Your profile",
+      "description": "How you show up across the app. Your avatar and name appear in the header, sidebar, and anywhere your teammates see you.",
+      "avatar": {
+        "change": "Change photo",
+        "upload": "Upload photo",
+        "remove": "Remove",
+        "hint": "PNG, JPG, WebP, or GIF. Up to 2 MB.",
+        "err_type_title": "Unsupported image type",
+        "err_type_desc": "Use PNG, JPG, WebP, or GIF.",
+        "err_size_title": "Image is too large",
+        "err_size_desc": "Maximum 2 MB."
+      },
+      "form": {
+        "name_label": "Display name",
+        "name_placeholder": "Ada Lovelace",
+        "email_label": "Email",
+        "email_pending_1": "Check the inbox for",
+        "email_pending_2": "and",
+        "email_pending_3": "— both need to confirm before the change takes effect."
+      },
+      "account_details": {
+        "title": "Account details",
+        "role": "Role",
+        "joined": "Joined",
+        "user_id": "User ID"
+      },
+      "loading": "Loading your profile…",
+      "saving": "Saving…",
+      "save_changes": "Save changes",
+      "toasts": {
+        "req_name": "Display name is required",
+        "req_email": "Enter a valid email address",
+        "upload_failed": "Upload failed: {{error}}",
+        "save_failed": "Save failed: {{error}}",
+        "email_failed": "Email change failed: {{error}}",
+        "saved_check_email": "Profile saved — check your email to confirm the address change",
+        "saved": "Profile saved",
+        "unknown_error": "Unknown error"
+      }
+    },
+    "whatsapp": {
+      "title": "WhatsApp connection",
+      "description": "Connect your Meta WhatsApp Business API. Credentials, webhook, and setup steps all live here.",
+      "toasts": {
+        "load_failed": "Failed to load WhatsApp configuration",
+        "req_phone": "Phone Number ID is required",
+        "req_token": "Access Token is required for initial setup",
+        "reenter_token": "Please re-enter the Access Token to save changes",
+        "save_failed": "Failed to save configuration",
+        "save_reg_failed": "Saved, but Meta couldn't register the number: {{error}}",
+        "save_reg_skipped": "Credentials saved and verified. Inbound registration was skipped (no PIN) — see Registration status below.",
+        "save_success_live": "Live — {{name}} can now receive events.",
+        "save_success": "WhatsApp connected. Events will start flowing within a minute.",
+        "test_success_live": "Connected to {{name}}",
+        "test_success": "API connection successful",
+        "test_failed": "API connection failed",
+        "test_error": "Connection test failed. Check network and try again.",
+        "verify_success": "Number is fully wired — Meta is delivering events.",
+        "verify_failed": "Number is not fully registered. See the checks below for which step failed.",
+        "verify_error": "Could not reach the verification endpoint.",
+        "reset_confirm": "This will delete the current WhatsApp config so you can re-enter it. Continue?",
+        "reset_failed": "Failed to reset configuration",
+        "reset_success": "Configuration cleared. You can now re-enter your credentials.",
+        "sdk_not_loaded": "Facebook SDK not loaded yet. Please wait a moment.",
+        "fb_success": "Successfully connected WhatsApp Business Account!",
+        "fb_failed": "Failed to complete Embedded Signup.",
+        "fb_error": "An error occurred during signup.",
+        "fb_cancelled": "User cancelled login or did not fully authorize.",
+        "webhook_copied": "Webhook URL copied to clipboard"
+      },
+      "reset_banner": {
+        "title": "Stored token can't be decrypted",
+        "btn": "Reset Configuration",
+        "btn_loading": "Resetting..."
+      },
+      "connection": {
+        "title_valid": "Credentials valid",
+        "title_invalid": "Not Connected",
+        "desc_valid": "Your access token authenticates with Meta. See Registration status below for whether webhooks are actually wired.",
+        "desc_invalid": "Configure your Meta API credentials below to connect your WhatsApp Business account."
+      },
+      "registration": {
+        "title_live": "Registered — Meta will deliver events to wacrm",
+        "title_not_live": "Not registered — Meta will not deliver events",
+        "btn_verify": "Verify with Meta",
+        "desc_live_1": "Subscribed since",
+        "desc_live_unknown": "unknown",
+        "desc_live_2": ". Click",
+        "desc_live_3": "Verify with Meta",
+        "desc_live_4": "if events stop arriving.",
+        "desc_failed_1": "Last attempt failed with:",
+        "desc_failed_2": ". Enter (or correct) the 2-step PIN below and click Save Configuration to retry.",
+        "desc_skipped": "This number was saved before registration tracking existed, or registration was skipped. Enter the 2-step PIN below and click Save Configuration to subscribe it.",
+        "diag_title": "Diagnostic — last run: ",
+        "diag_live": "live",
+        "diag_not_live": "not live"
+      },
+      "embedded": {
+        "title": "Connect with Meta",
+        "description": "The easiest and official way to connect your WhatsApp Business account.",
+        "btn": "Connect your WhatsApp",
+        "btn_loading": "Connecting...",
+        "hint": "By clicking this button, you will be prompted to select your WhatsApp Business Account and Phone Number."
+      },
+      "manual": {
+        "title": "Advanced: Manual Configuration",
+        "phone": "Phone Number ID",
+        "phone_placeholder": "e.g. 100234567890123",
+        "waba": "WhatsApp Business Account ID",
+        "waba_placeholder": "e.g. 100234567890456",
+        "token": "Permanent Access Token",
+        "token_placeholder": "Enter your access token",
+        "token_hint": "Token is hidden for security. Re-enter it to update configuration.",
+        "verify": "Webhook Verify Token",
+        "verify_placeholder": "Create a custom verify token",
+        "verify_hint": "A custom string you create. Must match the token you set in Meta webhook settings.",
+        "pin": "Two-step verification PIN",
+        "pin_opt": "(optional)",
+        "pin_placeholder": "6-digit PIN from Meta WhatsApp Manager",
+        "pin_hint_1": "Needed only to wire",
+        "pin_hint_2": "inbound",
+        "pin_hint_3": "messages for a",
+        "pin_hint_4": "production",
+        "pin_hint_5": "number. Set it in",
+        "pin_hint_6": "Meta Business Manager → WhatsApp Accounts → Phone Numbers → Two-step verification",
+        "pin_hint_7": ", then paste it here so wacrm can subscribe the number — otherwise Meta routes inbound events to whichever app last claimed it (the symptom that hits second numbers under a shared WABA).",
+        "pin_hint_8": "Meta test numbers",
+        "pin_hint_9": "have no PIN and are pre-registered — leave this blank for them. Leaving it blank also keeps an existing registration untouched."
+      },
+      "webhook": {
+        "title": "Webhook Configuration",
+        "description": "Use this URL as your webhook callback in the Meta App Dashboard.",
+        "label": "Webhook Callback URL"
+      },
+      "actions": {
+        "save": "Save Configuration",
+        "saving": "Saving...",
+        "test": "Test API Connection",
+        "testing": "Testing...",
+        "reset": "Reset Configuration",
+        "resetting": "Resetting..."
+      }
+    },
+    "members": {
+      "title": "Team members",
+      "description": "People with access to this account. Roles control what each teammate can do.",
+      "invite_member": "Invite member",
+      "status_online": "online",
+      "status_away": "away",
+      "status_offline": "offline",
+      "member_count_one": "member",
+      "member_count_other": "members",
+      "unnamed": "Unnamed",
+      "you": "You",
+      "joined": "Joined",
+      "pending_invitations": "Pending invitations",
+      "invite_warning": "The plaintext invite URL is only shown once at creation for security — to re-share, revoke the invite below and create a new one.",
+      "no_invites": "No pending invitations.",
+      "no_invites_help_1": "Click",
+      "no_invites_help_2": "Invite member",
+      "no_invites_help_3": "above to generate a shareable link.",
+      "untitled_invite": "Untitled invite",
+      "created": "Created",
+      "expires_in_days_one": "expires in {{count}} day",
+      "expires_in_days_other": "expires in {{count}} days",
+      "expires_in_hours_one": "expires in {{count}} hour",
+      "expires_in_hours_other": "expires in {{count}} hours",
+      "expired": "expired",
+      "revoke": "Revoke",
+      "remove_title": "Remove member",
+      "remove_desc_1": "Remove",
+      "remove_desc_2": "from the account? They'll be signed out of this account and given a fresh personal account on their next sign-in. Their login isn't deleted.",
+      "cancel": "Cancel",
+      "removing": "Removing...",
+      "remove_btn": "Remove member",
+      "toasts": {
+        "load_members_failed": "Failed to load members",
+        "load_invites_failed": "Failed to load invitations",
+        "server_error": "Could not reach the server",
+        "update_role_failed": "Failed to update role",
+        "updated_role": "Updated {{name}} to {{role}}",
+        "member_fallback": "member",
+        "remove_failed": "Failed to remove member",
+        "removed": "Removed {{name}}",
+        "revoke_failed": "Failed to revoke invitation",
+        "revoked": "Invitation revoked"
+      }
+    },
+    "security": {
+      "title": "Login & security",
+      "description": "Change your password and sign out of your devices. These keep your account safe.",
+      "password": {
+        "title": "Password",
+        "description": "Use at least {{minPassword}} characters. You will stay signed in on this device after changing it.",
+        "current_password": "Current password",
+        "new_password": "New password",
+        "confirm_new_password": "Confirm new password",
+        "updating": "Updating…",
+        "update_password": "Update password",
+        "error_no_email": "Cannot change password without a current email",
+        "error_too_short": "Password must be at least {{minPassword}} characters",
+        "error_mismatch": "New password and confirmation do not match",
+        "error_wrong_current": "Current password is incorrect",
+        "error_update_failed": "Password update failed: {{error}}",
+        "error_unknown": "Unknown error",
+        "success_updated": "Password updated"
+      },
+      "sessions": {
+        "title": "Active sessions",
+        "description": "Sign out of every device where you're logged in — including this one. Useful if you lost a laptop or shared your password.",
+        "sign_out_all_btn": "Sign out of all devices",
+        "dialog_title": "Sign out everywhere?",
+        "dialog_description": "Every device logged into this account will be signed out and will need to log in again. You will be redirected to the login page.",
+        "cancel": "Cancel",
+        "signing_out": "Signing out…",
+        "sign_out_all": "Sign out everywhere",
+        "error_signout_failed": "Sign-out failed: {{error}}",
+        "error_unknown": "Unknown error"
+      }
+    },
+    "api_keys": {
+      "title": "API keys",
+      "description": "Keys authenticate the public REST API so you can build your own automations.",
+      "new_key": "New API key",
+      "no_keys": "No API keys yet.",
+      "create_hint": "Click New API key to create one.",
+      "ask_admin": "Ask an admin to create one.",
+      "status_revoked": "Revoked",
+      "status_expired": "Expired",
+      "no_scopes": "No scopes",
+      "created": "Created {{date}}",
+      "last_used": "last used {{date}}",
+      "never_used": "never used",
+      "expires": "expires {{date}}",
+      "revoke": "Revoke",
+      "toasts": {
+        "load_failed": "Failed to load API keys",
+        "revoke_success": "Revoked \"{{name}}\"",
+        "revoke_failed": "Failed to revoke key",
+        "server_error": "Could not reach the server",
+        "req_name": "Give the key a name",
+        "create_failed": "Failed to create key",
+        "copy_success": "API key copied",
+        "copy_failed": "Copy failed — select and copy manually"
+      },
+      "dialog": {
+        "copy_title": "Copy your API key",
+        "copy_desc": "This is the only time the full key is shown. Store it somewhere safe — if you lose it, revoke it and create a new one.",
+        "key_label": "API key",
+        "copy": "Copy",
+        "done": "Done",
+        "new_title": "New API key",
+        "new_desc": "Name it after the integration that will use it, and grant only the scopes it needs.",
+        "name_label": "Name",
+        "name_placeholder": "e.g. Zapier automation",
+        "scopes_label": "Scopes",
+        "scopes_hint": "A key with no scopes can still call GET /api/v1/me to verify it works.",
+        "cancel": "Cancel",
+        "creating": "Creating…",
+        "create_key": "Create key"
+      }
+    }
   },
   "common": {
     "loading": "Loading..."
@@ -72,6 +411,280 @@
       "back_to_login": "Back to sign in",
       "success_title": "Check your email",
       "success_desc": "If an account exists with that email, we sent a password reset link."
+    }
+  },
+  "contacts": {
+    "title": "Contacts",
+    "subtitle": "Manage your contact list.",
+    "subtitle_with_count": "{{count}} total contacts.",
+    "custom_fields": {
+      "title": "Custom fields",
+      "description": "Define extra contact fields (e.g. ZIP code, lead source). They appear on every contact and in the \"Update Contact Field\" automation action.",
+      "new_placeholder": "New field name…",
+      "add": "Add",
+      "loading": "Loading…",
+      "empty": "No custom fields yet.",
+      "duplicate": "A field named \"{{name}}\" already exists.",
+      "create_error": "Could not create field. You may not have permission.",
+      "created": "Created \"{{name}}\".",
+      "rename_error": "Could not rename field.",
+      "delete_error": "Could not delete field.",
+      "deleted": "Deleted \"{{name}}\".",
+      "rename_aria": "Rename {{name}}",
+      "delete_title": "Delete field",
+      "confirm_delete": "Delete \"{{name}}\"? This also removes its stored value on every contact. This cannot be undone."
+    },
+    "import": {
+      "title": "Import Contacts",
+      "description": "Upload a CSV file with a required <0>phone</0> column. Optional: <1>name</1>, <2>email</2>, <3>company</3>, <4>tags</4> (comma-separated; quote multi-tag cells).",
+      "click_to_choose": "Click to choose a CSV file",
+      "csv_limit": ".csv up to your browser limit",
+      "preview": "Preview · first {{count}}",
+      "import_complete": "Import complete",
+      "imported": "{{count}} imported",
+      "skipped": "{{count}} skipped",
+      "failed": "{{count}} failed",
+      "tags_assigned_one": "{{count}} tag assigned",
+      "tags_assigned_other": "{{count}} tags assigned",
+      "close": "Close",
+      "cancel": "Cancel",
+      "import_button_one": "Import {{count}} contact",
+      "import_button_other": "Import {{count}} contacts",
+      "invalid_csv": "No valid rows found. Ensure CSV has a \"phone\" column header.",
+      "will_create_tag": "(will be created on import)",
+      "rows_ready_one": "{{count}} row ready",
+      "rows_ready_other": "{{count}} rows ready",
+      "rows_not_shown_one": "+{{count}} row not shown",
+      "rows_not_shown_other": "+{{count}} rows not shown"
+    },
+    "add_contact": "Add Contact",
+    "edit_contact": "Edit Contact",
+    "search_placeholder": "Search by name, phone, or email...",
+    "filter_by_tags": "Filter by tags",
+    "clear_all": "Clear all",
+    "filter_by_tag": "Filter by {{name}}",
+    "remove_tag_filter": "Remove {{name}} filter",
+    "select_contact": "Select {{name}}",
+    "no_tags": "No tags yet.",
+    "contact_selected": "contact selected",
+    "contacts_selected": "contacts selected",
+    "clear": "Clear",
+    "delete_selected": "Delete selected",
+    "select_all": "Select all contacts on this page",
+    "columns": {
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email",
+      "company": "Company",
+      "tags": "Tags",
+      "created": "Created"
+    },
+    "loading": "Loading contacts...",
+    "empty_filtered": "No contacts match your filters.",
+    "empty_all": "No contacts yet.",
+    "add_first": "Add your first contact",
+    "unnamed": "Unnamed",
+    "edit": "Edit",
+    "delete": "Delete",
+    "pagination": {
+      "showing": "Showing {{from}}-{{to}} of {{total}}",
+      "page_of": "Page {{page}} of {{totalPages}}"
+    },
+    "delete_dialog": {
+      "title": "Delete Contact",
+      "title_plural": "Delete {{count}} Contacts",
+      "confirm": "Are you sure you want to delete {{name}}? This action cannot be undone.",
+      "confirm_plural": "Are you sure you want to delete {{count}} contacts? This action cannot be undone."
+    },
+    "form": {
+      "add_title": "Add Contact",
+      "edit_title": "Edit Contact",
+      "add_desc": "Fill in the details to create a new contact.",
+      "edit_desc": "Update the contact details below.",
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email",
+      "company": "Company",
+      "tags": "Tags",
+      "name_placeholder": "John Doe",
+      "phone_placeholder": "+1 234 567 8900",
+      "email_placeholder": "john@example.com",
+      "company_placeholder": "Acme Inc.",
+      "required_phone": "Phone number is required",
+      "duplicate_phone": "A contact with this phone number already exists",
+      "duplicate_similar": "A contact with a very similar number already exists.",
+      "phone_hint": "Include country code, e.g. +1 for US",
+      "loading_tags": "Loading tags...",
+      "no_tags": "No tags available. Create tags in Settings.",
+      "cancel": "Cancel",
+      "create": "Create",
+      "update": "Update",
+      "created": "Contact created",
+      "updated": "Contact updated",
+      "view_existing": "View {{name}}"
+    },
+    "detail": {
+      "unknown": "Unknown",
+      "description": "Contact details",
+      "send_template": "Send template",
+      "tabs": {
+        "details": "Details",
+        "tags": "Tags",
+        "notes": "Notes",
+        "custom": "Custom Fields",
+        "deals": "Deals"
+      },
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email",
+      "company": "Company",
+      "save_changes": "Save Changes",
+      "tags_hint": "Click a tag to add or remove it from this contact.",
+      "no_tags": "No tags available. Create tags in Settings.",
+      "note_placeholder": "Write a note...",
+      "add_note": "Add Note",
+      "no_notes": "No notes yet.",
+      "no_custom": "No custom fields defined. Create them in Settings.",
+      "enter_field": "Enter {{name}}...",
+      "save_custom": "Save Custom Fields",
+      "no_deals": "No deals yet"
+    },
+    "toasts": {
+      "failed_load": "Failed to load contacts",
+      "deleted_one": "Contact deleted",
+      "deleted_other": "{{count}} contacts deleted",
+      "failed_delete": "Failed to delete contact",
+      "failed_delete_plural": "Failed to delete contacts",
+      "failed_save": "Failed to save contact",
+      "failed_update": "Failed to update contact",
+      "note_added": "Note added",
+      "note_deleted": "Note deleted",
+      "failed_note": "Failed to add note",
+      "failed_note_delete": "Failed to delete note",
+      "not_authenticated": "Not authenticated",
+      "custom_saved": "Custom fields saved",
+      "custom_failed": "Failed to save custom fields",
+      "template_sent": "Template \"{{name}}\" sent",
+      "failed_template": "Failed to send template: {{reason}}"
+    }
+  },
+  "pipelines": {
+    "title": "Pipelines",
+    "select_pipeline": "Select Pipeline",
+    "no_pipelines": "No pipelines yet",
+    "manage_pipelines": "Manage Pipelines",
+    "add_pipeline": "Add Pipeline",
+    "add_deal": "Add Deal",
+    "create_pipeline": "Create Pipeline",
+    "new_pipeline": "New Pipeline",
+    "pipeline_name": "Pipeline Name",
+    "pipeline_name_placeholder": "e.g., Enterprise Sales",
+    "default_stages_hint": "Default stages (New Lead → Won) will be created automatically.",
+    "cancel": "Cancel",
+    "creating": "Creating...",
+    "empty_title": "No pipelines yet",
+    "empty_desc": "Create a pipeline to start tracking deals",
+    "drop_deal_here": "Drop a deal here",
+    "board": {
+      "add_deal": "Add Deal"
+    },
+    "deal_card": {
+      "no_contact": "No contact",
+      "won": "Won",
+      "lost": "Lost"
+    },
+    "deal_form": {
+      "new_title": "New Deal",
+      "edit_title": "Edit Deal",
+      "title": "Title",
+      "title_placeholder": "Deal title",
+      "contact": "Contact",
+      "select_contact": "Select a contact",
+      "link_to_conversation": "Link to Conversation",
+      "value": "Value",
+      "currency": "Currency",
+      "expected_close_date": "Expected Close Date",
+      "stage": "Stage",
+      "assigned_to": "Assigned To",
+      "unassigned": "Unassigned",
+      "notes": "Notes",
+      "notes_placeholder": "Add notes...",
+      "status": "Status",
+      "mark_as_won": "Mark as Won",
+      "mark_as_lost": "Mark as Lost",
+      "reopen_deal": "Reopen deal",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "save_changes": "Save Changes",
+      "create_deal": "Create Deal",
+      "delete_confirm": "Delete this deal?",
+      "confirm": "Confirm",
+      "deleting": "Deleting...",
+      "delete_deal": "Delete Deal"
+    },
+    "analytics": {
+      "total_deals": "Total Deals",
+      "pipeline_value": "Pipeline Value",
+      "avg_deal_size": "Avg Deal Size",
+      "weighted_value": "Weighted Value",
+      "won_this_month": "Won This Month",
+      "lost_this_month": "Lost This Month",
+      "tooltip_total_deals": "Count of every deal in this pipeline that isn't marked as Lost. Won deals are still included.",
+      "tooltip_pipeline_value": "Sum of the dollar values of all deals in this pipeline, excluding deals marked as Lost.",
+      "tooltip_avg_deal_size": "Pipeline Value divided by Total Deals — the average value of a single non-lost deal.",
+      "tooltip_weighted_value": "Expected revenue: each open deal's value × its stage probability. First stage ≈ 10%, stages progress up to 90%, Won = 100%. Lost deals are excluded.",
+      "tooltip_won_this_month": "Deals marked as Won since the first day of the current month.",
+      "tooltip_lost_this_month": "Deals marked as Lost since the first day of the current month.",
+      "how_label_calculated": "How {{label}} is calculated"
+    },
+    "settings": {
+      "title": "Manage Pipeline",
+      "delete_pipeline": "Delete Pipeline",
+      "delete_confirm_desc": "This will archive all deals in this pipeline. This cannot be undone.",
+      "cancel": "Cancel",
+      "deleting": "Deleting...",
+      "pipeline_name": "Pipeline Name",
+      "stages": "Stages",
+      "new_stage_name": "New stage name",
+      "add": "Add",
+      "create_new": "Create a new pipeline",
+      "saving": "Saving...",
+      "save_changes": "Save Changes",
+      "drag_to_reorder": "Drag to reorder",
+      "change_color": "Change color",
+      "pick_color": "Pick color {{color}}"
+    },
+    "toasts": {
+      "failed_move": "Failed to move deal",
+      "failed_create_pipeline": "Failed to create pipeline",
+      "pipeline_created": "Pipeline created",
+      "failed_save_deal": "Failed to save deal",
+      "failed_create_deal": "Failed to create deal",
+      "deal_updated": "Deal updated",
+      "deal_created": "Deal created",
+      "required_fields": "Title, contact, and stage are required",
+      "failed_status": "Failed to update deal status",
+      "marked_won": "Marked as won",
+      "marked_lost": "Marked as lost",
+      "deal_reopened": "Deal reopened",
+      "failed_delete_deal": "Failed to delete deal",
+      "deal_deleted": "Deal deleted",
+      "failed_save_pipeline": "Failed to save pipeline",
+      "pipeline_saved": "Pipeline saved",
+      "failed_add_stage": "Failed to add stage",
+      "stage_has_deals": "Move or delete deals in this stage first",
+      "failed_delete_stage": "Failed to delete stage",
+      "failed_delete_pipeline": "Failed to delete pipeline",
+      "pipeline_deleted": "Pipeline deleted",
+      "not_signed_in": "Not signed in",
+      "not_linked": "Your profile is not linked to an account."
+    },
+    "default_stages": {
+      "new_lead": "New Lead",
+      "qualified": "Qualified",
+      "proposal_sent": "Proposal Sent",
+      "negotiation": "Negotiation",
+      "won": "Won"
     }
   },
   "dashboard": {
@@ -148,5 +761,474 @@
         "days": "{{count}}d ago"
       }
     }
+  },
+  "inbox": {
+    "whatsapp_not_connected": "WhatsApp® is not connected. Go to Settings to connect your account.",
+    "conversation_list": {
+      "search_placeholder": "Search conversations...",
+      "filters": {
+        "all": "All",
+        "unread": "Unread",
+        "open": "Open",
+        "pending": "Pending",
+        "closed": "Closed",
+        "tags": "Tags",
+        "tag": "Tag",
+        "company": "Company",
+        "all_companies": "All companies",
+        "clear_all": "Clear all"
+      },
+      "empty": "No conversations found",
+      "unknown_contact": "Unknown",
+      "no_messages": "No messages yet"
+    },
+    "message_thread": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "assignment": {
+        "assigned": "Assigned",
+        "assign": "Assign",
+        "unassign": "Unassign",
+        "no_teammates": "No teammates available",
+        "me": " (me)"
+      },
+      "empty_selection": {
+        "title": "Select a conversation",
+        "subtitle": "Choose a conversation from the left to start messaging"
+      },
+      "empty_messages": {
+        "title": "No messages yet",
+        "subtitle": "Send a template to start the conversation"
+      },
+      "session_timer": {
+        "no_messages": "No customer messages",
+        "expired": "Expired",
+        "hours_remaining": "{{count}}h remaining",
+        "minutes_remaining": "{{count}}m remaining"
+      },
+      "authors": {
+        "customer": "Customer",
+        "you": "You"
+      },
+      "errors": {
+        "wait_sending": "Wait for the message to finish sending",
+        "send_failed": "Failed to send: {{reason}}",
+        "reaction_failed": "Reaction failed: {{reason}}",
+        "template_failed": "Failed to send template: {{reason}}",
+        "assignment_failed": "Failed to update assignment"
+      }
+    },
+    "composer": {
+      "errors": {
+        "ai_not_setup": "AI isn't set up yet — enable it in Settings → AI Assistant.",
+        "draft_failed": "Couldn't draft a reply.",
+        "no_reply": "The assistant didn't return a reply.",
+        "ai_unreachable": "Couldn't reach the AI assistant.",
+        "file_too_large": "File is {{actual}} MB — {{kind}} limit is {{limit}} MB.",
+        "upload_failed": "Upload failed.",
+        "recording_too_long": "Recording is too long (over 16 MB).",
+        "voice_not_supported": "Voice recording isn't supported in this browser.",
+        "mic_denied": "Microphone access denied or unavailable."
+      },
+      "session_expired_banner": "24-hour session expired. Use a template to re-engage.",
+      "templates": "Templates",
+      "recording": "Recording… {{current}} / {{max}}",
+      "cancel": "Cancel",
+      "stop_and_attach": "Stop and attach",
+      "readonly_tooltip": "Read-only — your role can't send messages",
+      "attach_media": "Attach media",
+      "media_types": {
+        "photo": "Photo",
+        "video": "Video",
+        "document": "Document",
+        "voice_note": "Voice note"
+      },
+      "send_template": "Send template",
+      "draft_with_ai": "Draft a reply with AI",
+      "placeholders": {
+        "readonly": "Read-only — viewers can browse but not reply",
+        "expired": "Session expired - use a template",
+        "type_message": "Type a message... (Shift+Enter for new line)",
+        "add_caption": "Add a caption…"
+      },
+      "ai_hint": "Tap the ✨ to draft a reply with AI — you can edit it before sending",
+      "remove_attachment": "Remove attachment"
+    },
+    "message_actions": {
+      "copy_empty": "Nothing to copy",
+      "copied": "Copied",
+      "copy_failed": "Copy failed",
+      "react": "React",
+      "react_with": "React with {{emoji}}",
+      "reply": "Reply",
+      "copy": "Copy"
+    },
+    "reply_quote": {
+      "cancel_reply": "Cancel reply",
+      "preview": {
+        "image": "[Image]",
+        "video": "[Video]",
+        "audio": "[Audio]",
+        "document": "[Document]",
+        "location": "[Location]",
+        "template": "[Template]",
+        "message": "[Message]"
+      }
+    },
+    "message_bubble": {
+      "media_unavailable": "{{label}} unavailable",
+      "shared_image": "Shared image",
+      "document": "Document",
+      "template": "Template",
+      "location_shared": "Location shared",
+      "button_reply": "Button reply",
+      "interactive_reply": "[Interactive reply]",
+      "unsupported": "[Unsupported message type]"
+    },
+    "template_picker": {
+      "title_send": "Send template",
+      "desc_fill": "Fill in the placeholders to render this template. Meta requires every variable to be set.",
+      "desc_pick": "Pick an approved WhatsApp template to send to this contact.",
+      "no_templates": "No approved templates",
+      "no_templates_desc": "Approve a template in Meta WhatsApp Manager, then sync it from Settings → Templates.",
+      "preview": "Preview",
+      "header_var": "Header {{1}}",
+      "header_placeholder": "Value for the header variable",
+      "body_var": "Body {{val}}",
+      "body_placeholder": "Value for {{val}}",
+      "url_button": "URL button \"{{text}}\" — value for {{1}}",
+      "url_placeholder": "URL suffix value",
+      "final_url": "Final URL:",
+      "back": "Back",
+      "cancel": "Cancel",
+      "send": "Send template"
+    },
+    "contact_sidebar": {
+      "select_conversation": "Select a conversation",
+      "tags": "Tags",
+      "no_tags": "No tags",
+      "active_deals": "Active Deals",
+      "no_deals": "No deals",
+      "notes": "Notes",
+      "add_note_placeholder": "Add a note..."
+    }
+  },
+  "broadcasts": {
+    "title": "Broadcasts",
+    "description": "Send bulk messages to your contacts using approved templates.",
+    "new_broadcast": "New Broadcast",
+    "no_broadcasts_title": "No broadcasts yet",
+    "no_broadcasts_desc": "Create your first broadcast to reach your contacts at scale.",
+    "error_load": "Failed to load broadcasts",
+    "retry": "Retry",
+    "table": {
+      "name": "Name",
+      "template": "Template",
+      "recipients": "Recipients",
+      "delivery": "Delivery",
+      "read": "Read",
+      "status": "Status",
+      "date": "Date"
+    },
+    "new": {
+      "title": "New Broadcast",
+      "description": "Create and send a broadcast message to your contacts.",
+      "steps": {
+        "template": "Template",
+        "audience": "Audience",
+        "personalize": "Personalize",
+        "send": "Send"
+      },
+      "toasts": {
+        "failed": "Broadcast failed",
+        "missing_name": "Give the broadcast a name before saving a draft.",
+        "not_signed_in": "Not signed in.",
+        "not_linked": "Your profile is not linked to an account.",
+        "draft_failed": "Failed to save draft",
+        "draft_saved": "Draft saved"
+      },
+      "step1": {
+        "title": "Choose a Template",
+        "description": "Select an approved message template for your broadcast.",
+        "no_templates": "No templates available.",
+        "create_first": "Create a template in Settings first.",
+        "back": "Back",
+        "next": "Next",
+        "error_load": "Failed to load templates"
+      },
+      "step2": {
+        "title": "Select Audience",
+        "description": "Choose who will receive this broadcast.",
+        "options": {
+          "all": {
+            "label": "All Contacts",
+            "desc": "Send to every contact in your database"
+          },
+          "tags": {
+            "label": "Filter by Tags",
+            "desc": "Target contacts with specific tags"
+          },
+          "custom_field": {
+            "label": "Custom Field",
+            "desc": "Filter by a custom field value"
+          },
+          "csv": {
+            "label": "Upload CSV",
+            "desc": "Upload a list of phone numbers"
+          }
+        },
+        "operators": {
+          "is": "is",
+          "is_not": "is not",
+          "contains": "contains"
+        },
+        "tags": {
+          "select": "Select Tags",
+          "not_found": "No tags found. Create tags in Settings.",
+          "exclude": "Exclude contacts with these tags",
+          "optional": "(optional)",
+          "no_available": "No tags available."
+        },
+        "custom_field": {
+          "title": "Custom Field Filter",
+          "no_defined": "No custom fields defined. Create one in Settings → Custom Fields.",
+          "select": "Select field…",
+          "value_placeholder": "Value"
+        },
+        "summary": {
+          "title": "Audience Summary",
+          "calculating": "Calculating…",
+          "estimated": "estimated recipients",
+          "select_type": "Select an audience type to see the estimate."
+        },
+        "back": "Back",
+        "next": "Next"
+      },
+      "step3": {
+        "title": "Personalize Message",
+        "description": "Map template variables to contact fields, custom fields, or static values.",
+        "header_media": "Header media",
+        "media_url": "Media URL",
+        "media_desc_1": "Public URL of the",
+        "media_desc_2": "sent as the message header. Used for every recipient in this broadcast.",
+        "media_missing": "A media URL is required to send this template.",
+        "media_invalid": "Enter a valid http(s) URL.",
+        "no_variables": "This template has no variables to personalize.",
+        "mapping_type": "Mapping Type",
+        "mapping_static": "Static Value",
+        "mapping_field": "Contact Field",
+        "mapping_custom": "Custom Field",
+        "value_label": "Value",
+        "field_label": "Field",
+        "enter_value": "Enter value...",
+        "select_field": "Select field...",
+        "loading": "Loading...",
+        "no_custom_fields": "No custom fields",
+        "select_custom_field": "Select custom field...",
+        "live_preview": "Live Preview",
+        "sample_data": "sample data",
+        "missing_map_1": "Map every placeholder before continuing — still missing",
+        "missing_map_2": ". Otherwise those placeholders will ship to Meta as empty strings.",
+        "back": "Back",
+        "next": "Next",
+        "contact_fields": {
+          "name": "Contact Name",
+          "phone": "Phone Number",
+          "email": "Email Address",
+          "company": "Company"
+        }
+      },
+      "step4": {
+        "title": "Review & Send",
+        "description": "Name your broadcast, review the details, and send.",
+        "name_label": "Broadcast Name",
+        "name_placeholder": "e.g. Summer Sale Announcement",
+        "summary": "Summary",
+        "template": "Template",
+        "audience": "Audience",
+        "estimated_reach": "Estimated Reach",
+        "language": "Language",
+        "sending": "Sending broadcast...",
+        "back": "Back",
+        "save_draft": "Save as Draft",
+        "send_broadcast": "Send Broadcast",
+        "confirm_title": "Confirm Broadcast",
+        "confirm_desc_1": "You are about to send this broadcast to",
+        "confirm_desc_2": "contacts using the",
+        "confirm_desc_3": "template. This action cannot be undone.",
+        "cancel": "Cancel",
+        "confirm_send": "Confirm & Send",
+        "audience_labels": {
+          "all": "All Contacts",
+          "tags": "Tags",
+          "selected": "selected",
+          "csv": "CSV Upload",
+          "custom": "Custom"
+        }
+      }
+    }
+  },
+  "automations": {
+    "title": "Automations",
+    "description": "Build workflows that react to WhatsApp® events automatically.",
+    "create": "Create Automation",
+    "templates_title": "Quick-start templates",
+    "no_automations": "No automations yet",
+    "pick_template": "Pick a template above or create one from scratch.",
+    "delete_title": "Delete automation",
+    "delete_desc_1": "This permanently removes",
+    "delete_desc_2": "and its execution history. This cannot be undone.",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "duplicate": "Duplicate",
+    "view_logs": "View Logs",
+    "activated": "Automation activated",
+    "paused": "Automation paused",
+    "failed_update": "Failed to update",
+    "duplicated": "Automation duplicated",
+    "failed_duplicate": "Failed to duplicate",
+    "deleted": "Automation deleted",
+    "failed_delete": "Failed to delete",
+    "failed_load": "Failed to load automations",
+    "retry": "Retry",
+    "run": "run",
+    "runs": "runs",
+    "last": "last",
+    "templates": {
+      "welcome_message": {
+        "name": "Welcome Message",
+        "description": "Auto-reply to first-time contacts with a greeting."
+      },
+      "out_of_office": {
+        "name": "Out of Office",
+        "description": "Auto-reply during off-hours so nobody is left waiting."
+      },
+      "lead_qualifier": {
+        "name": "Lead Qualifier",
+        "description": "Ask qualification questions to filter inbound leads."
+      },
+      "follow_up_reminder": {
+        "name": "Follow-up Reminder",
+        "description": "Send a nudge if a contact has not replied within 24 hours."
+      }
+    }
+  },
+  "flows": {
+    "title": "Flows",
+    "description": "Build branching, button-driven WhatsApp conversations. Useful for menus, FAQs, and triage before a human steps in.",
+    "create": "New flow",
+    "no_flows": "No flows yet",
+    "empty_desc": "Build your first conversation — a welcome menu, an order lookup, an FAQ bot. Customers tap buttons; the bot routes them to the right answer (or the right agent).",
+    "create_first": "Create your first flow",
+    "create_title": "Create a new flow",
+    "create_desc": "Start from a template or build from scratch.",
+    "start_template": "Start from a template",
+    "node": "node",
+    "nodes": "nodes",
+    "start_blank": "Or start blank",
+    "blank_placeholder": "e.g. Welcome menu",
+    "cancel": "Cancel",
+    "create_blank": "Create blank flow",
+    "edit": "Edit",
+    "delete": "Delete",
+    "run": "run",
+    "runs": "runs",
+    "delete_confirm": "Delete \"{{name}}\"? Any active runs will end immediately.",
+    "deleted": "Flow deleted.",
+    "failed_delete": "Couldn't delete flow.",
+    "failed_create": "Couldn't create flow.",
+    "failed_load": "Couldn't load flows.",
+    "failed_clone": "Clone failed",
+    "status_draft": "Draft",
+    "status_active": "Active",
+    "status_archived": "Archived",
+    "trigger_keyword_none": "Triggers on keyword (none set)",
+    "trigger_keyword": "Triggers on:",
+    "trigger_first_message": "Triggers on a contact's first-ever inbound message",
+    "trigger_manual": "Manual trigger"
+  },
+  "agents": {
+    "title": "AI Agents",
+    "description": "Your bring-your-own-key AI agent — set it up, then test it in the playground before it replies to customers in the inbox.",
+    "playground": "Playground",
+    "setup": "Setup",
+    "setup_title": "Agent setup",
+    "setup_desc": "Bring your own OpenAI or Anthropic key. wacrm calls the provider directly with your key — no per-seat AI fees, and your data stays yours. This powers AI-drafted replies in the inbox, the auto-reply bot, and the Playground.",
+    "admin_only": "Only admins and owners can change the AI configuration.",
+    "provider_key": "Provider & key",
+    "encrypted_desc": "Your key is encrypted at rest (AES-256-GCM) and never shown again after saving.",
+    "provider_label": "Provider",
+    "model_label": "Model",
+    "api_key_label": "API key",
+    "test_key": "Test key",
+    "embeddings_key": "Embeddings key",
+    "embeddings_optional": "(optional — enables semantic knowledge-base search)",
+    "embeddings_desc_1": "An OpenAI key used only to embed your knowledge base (text-embedding-3-small)",
+    "embeddings_desc_2": " — can be the same key as above",
+    "embeddings_desc_3": ". Leave blank to use keyword search instead. Clear it to turn semantic search off.",
+    "behaviour_title": "Behaviour",
+    "behaviour_desc": "Tell the assistant about your business — products, tone, what it may and may not promise. This context feeds both drafts and auto-replies.",
+    "business_context": "Business context & instructions",
+    "business_placeholder": "e.g. We are Acme, a coffee-equipment store. Be warm and concise. Never quote prices or delivery dates — hand off to a human for those.",
+    "enable_ai": "Enable AI assistant",
+    "enable_ai_desc": "Master switch. Turns on the “Draft with AI” button in the inbox.",
+    "auto_reply": "Auto-reply to inbound messages",
+    "auto_reply_desc": "The bot answers new inbound messages automatically (only when no flow handles them and no agent is assigned). Hands off to a human when it can’t help.",
+    "max_replies": "Max auto-replies per conversation",
+    "max_replies_desc": "After this many bot replies in one thread, the bot goes quiet.",
+    "remove_btn": "Remove",
+    "save_btn": "Save",
+    "test_success": "Key works — the provider responded.",
+    "test_rejected": "The provider rejected the request.",
+    "test_failed": "Could not reach the provider.",
+    "save_error_model": "Enter a model name.",
+    "save_error_key": "Enter your API key.",
+    "save_success": "AI assistant saved.",
+    "save_failed": "Failed to save.",
+    "remove_success": "AI configuration removed.",
+    "remove_failed": "Failed to remove.",
+    "playground_title": "Playground",
+    "playground_subtitle": "— test replies as if you were a customer",
+    "playground_reset": "Reset",
+    "playground_empty_1": "Send a message to see how your agent would reply.",
+    "playground_empty_2": "It uses your knowledge base and behaves exactly like the auto-reply bot — including handoff.",
+    "playground_go_setup": "Not set up yet? Go to Setup",
+    "playground_handoff": "Would hand off to a human here",
+    "playground_thinking": "Thinking…",
+    "playground_placeholder": "Type a customer message…",
+    "playground_err_setup": "No agent configured yet — finish Setup first.",
+    "playground_err_reply": "Couldn't get a reply.",
+    "playground_err_reach": "Couldn't reach the agent.",
+    "provider_encrypted": "Your key is encrypted at rest (AES-256-GCM) and never shown again after saving."
+  },
+  "knowledge": {
+    "load_failed": "Failed to load knowledge base",
+    "open_failed": "Failed to open document",
+    "validation_required": "Title and content are required.",
+    "doc_added": "Document added.",
+    "doc_updated": "Document updated.",
+    "save_failed": "Failed to save.",
+    "doc_removed": "Document removed.",
+    "remove_failed": "Failed to remove.",
+    "reindex_success": "Reindexed {{count}} document(s).",
+    "reindex_failed": "Reindex failed.",
+    "title": "Knowledge base",
+    "desc_main": "Add FAQs, policies, or product details. The assistant retrieves the relevant pieces when drafting and auto-replying, so it can answer instead of handing off.",
+    "desc_semantic_on": " Semantic search is on (embeddings key set).",
+    "desc_semantic_off": " Using keyword search — add an embeddings key above for semantic search.",
+    "loading": "Loading…",
+    "empty": "No documents yet.",
+    "edit_tooltip": "Edit",
+    "delete_tooltip": "Delete",
+    "doc_title": "Title",
+    "doc_title_placeholder": "e.g. Returns & refunds policy",
+    "doc_content": "Content",
+    "doc_content_placeholder": "Paste the FAQ answer, policy text, or product details…",
+    "cancel": "Cancel",
+    "save_doc": "Save document",
+    "add_doc": "Add document",
+    "reindex_tooltip": "Re-embed all documents (e.g. after adding an embeddings key)",
+    "reindex_btn": "Reindex"
   }
 }

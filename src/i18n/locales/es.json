@@ -1,18 +1,357 @@
 {
   "sidebar": {
     "dashboard": "Tablero",
-    "inbox": "Bandeja de Entrada",
+    "inbox": "Inbox",
+    "notifications": "Notificaciones",
     "contacts": "Contactos",
     "pipelines": "Embudos",
     "broadcasts": "Difusiones",
     "automations": "Automatizaciones",
-    "settings": "Configuración"
+    "settings": "Configuración",
+    "flows": "Flujos",
+    "agents": "Agentes de IA"
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "subtitle": "Actividad que requiere tu atención.",
+    "mark_all_read": "Marcar todo como leído",
+    "empty_title": "No hay notificaciones",
+    "empty_hint": "¡Estás al día! Te avisaremos cuando haya actividad.",
+    "types": {
+      "conversation_assigned": "Se te asignó una conversación",
+      "unknown": "Nueva notificación"
+    },
+    "toasts": {
+      "failed_mark_read": "Error al marcar la notificación como leída",
+      "failed_mark_all_read": "Error al marcar las notificaciones como leídas"
+    }
   },
   "settings": {
     "title": "Configuración",
     "language": "Idioma",
     "english": "Inglés",
-    "spanish": "Español"
+    "spanish": "Español",
+    "layout": {
+      "title": "Configuración",
+      "subtitle": "Todo en un solo lugar — tu cuenta y tu espacio de trabajo. Elige una sección para gestionarla."
+    },
+    "groups": {
+      "account": "Cuenta",
+      "workspace": "Espacio de trabajo"
+    },
+    "roles": {
+      "owner": "Propietario",
+      "admin": "Administrador",
+      "agent": "Agente",
+      "viewer": "Lector"
+    },
+    "sections": {
+      "overview": "Resumen",
+      "profile": "Tu perfil",
+      "security": "Inicio de sesión y seguridad",
+      "appearance": "Apariencia",
+      "whatsapp": "WhatsApp",
+      "templates": "Plantillas",
+      "fields": "Campos y etiquetas",
+      "deals": "Negocios y moneda",
+      "members": "Miembros del equipo",
+      "api": "Claves API",
+      "billing": "Suscripción y Pagos"
+    },
+    "overview": {
+      "whatsapp": {
+        "not_setup": "Aún no configurado",
+        "connected": "Conectado",
+        "needs_reconnecting": "Necesita reconectarse"
+      },
+      "members": {
+        "view_all": "Ver miembros del equipo",
+        "count_one": "{{count}} miembro",
+        "count_other": "{{count}} miembros",
+        "pending_one": "{{count}} invitación pendiente",
+        "pending_other": "{{count}} invitaciones pendientes"
+      },
+      "templates": {
+        "manage": "Gestionar plantillas de mensajes",
+        "count_one": "{{count}} plantilla",
+        "count_other": "{{count}} plantillas",
+        "pending": "{{count}} pendiente(s) de revisión"
+      },
+      "fields": {
+        "title": "Etiquetas y campos personalizados",
+        "tags_one": "{{count}} etiqueta",
+        "tags_other": "{{count}} etiquetas",
+        "custom_one": "{{count}} campo personalizado",
+        "custom_other": "{{count}} campos personalizados"
+      },
+      "appearance": {
+        "subtitle": "Modo {{mode}} · Acento {{theme}}"
+      },
+      "loading": "Cargando…"
+    },
+    "profile": {
+      "title": "Tu perfil",
+      "description": "Cómo te muestras en la aplicación. Tu avatar y nombre aparecen en el encabezado, en la barra lateral y en cualquier lugar donde tus compañeros de equipo te vean.",
+      "avatar": {
+        "change": "Cambiar foto",
+        "upload": "Subir foto",
+        "remove": "Eliminar",
+        "hint": "PNG, JPG, WebP, o GIF. Máximo 2 MB.",
+        "err_type_title": "Tipo de imagen no soportado",
+        "err_type_desc": "Usa PNG, JPG, WebP o GIF.",
+        "err_size_title": "La imagen es demasiado grande",
+        "err_size_desc": "Máximo 2 MB."
+      },
+      "form": {
+        "name_label": "Nombre a mostrar",
+        "name_placeholder": "Ada Lovelace",
+        "email_label": "Correo electrónico",
+        "email_pending_1": "Revisa la bandeja de entrada de",
+        "email_pending_2": "y",
+        "email_pending_3": "— ambos deben confirmarse antes de que el cambio tenga efecto."
+      },
+      "account_details": {
+        "title": "Detalles de la cuenta",
+        "role": "Rol",
+        "joined": "Se unió el",
+        "user_id": "ID de Usuario"
+      },
+      "loading": "Cargando tu perfil…",
+      "saving": "Guardando…",
+      "save_changes": "Guardar cambios",
+      "toasts": {
+        "req_name": "El nombre a mostrar es obligatorio",
+        "req_email": "Introduce una dirección de correo válida",
+        "upload_failed": "Error al subir: {{error}}",
+        "save_failed": "Error al guardar: {{error}}",
+        "email_failed": "Error al cambiar el correo: {{error}}",
+        "saved_check_email": "Perfil guardado — revisa tu correo para confirmar el cambio de dirección",
+        "saved": "Perfil guardado",
+        "unknown_error": "Error desconocido"
+      }
+    },
+    "whatsapp": {
+      "title": "Conexión con WhatsApp",
+      "description": "Conecta tu API de Meta WhatsApp Business. Credenciales, webhooks y pasos de configuración viven aquí.",
+      "toasts": {
+        "load_failed": "Error al cargar la configuración de WhatsApp",
+        "req_phone": "El ID del número de teléfono es obligatorio",
+        "req_token": "El token de acceso es obligatorio para la configuración inicial",
+        "reenter_token": "Por favor, vuelve a introducir el token de acceso para guardar los cambios",
+        "save_failed": "Error al guardar la configuración",
+        "save_reg_failed": "Guardado, pero Meta no pudo registrar el número: {{error}}",
+        "save_reg_skipped": "Credenciales guardadas y verificadas. Se omitió el registro entrante (sin PIN) — consulta el estado de registro a continuación.",
+        "save_success_live": "En vivo — {{name}} ahora puede recibir eventos.",
+        "save_success": "WhatsApp conectado. Los eventos comenzarán a fluir en un minuto.",
+        "test_success_live": "Conectado a {{name}}",
+        "test_success": "Conexión a la API exitosa",
+        "test_failed": "Error en la conexión a la API",
+        "test_error": "Error en la prueba de conexión. Revisa tu red e inténtalo de nuevo.",
+        "verify_success": "El número está completamente conectado — Meta está entregando eventos.",
+        "verify_failed": "El número no está completamente registrado. Revisa las comprobaciones a continuación para ver qué paso falló.",
+        "verify_error": "No se pudo alcanzar el endpoint de verificación.",
+        "reset_confirm": "Esto eliminará la configuración actual de WhatsApp para que puedas volver a introducirla. ¿Continuar?",
+        "reset_failed": "Error al restablecer la configuración",
+        "reset_success": "Configuración eliminada. Ahora puedes volver a introducir tus credenciales.",
+        "sdk_not_loaded": "El SDK de Facebook aún no se ha cargado. Por favor, espera un momento.",
+        "fb_success": "¡Cuenta de WhatsApp Business conectada exitosamente!",
+        "fb_failed": "Error al completar el inicio de sesión integrado.",
+        "fb_error": "Ocurrió un error durante el inicio de sesión.",
+        "fb_cancelled": "El usuario canceló el inicio de sesión o no autorizó completamente.",
+        "webhook_copied": "URL del webhook copiada al portapapeles"
+      },
+      "reset_banner": {
+        "title": "El token guardado no se puede descifrar",
+        "btn": "Restablecer configuración",
+        "btn_loading": "Restableciendo..."
+      },
+      "connection": {
+        "title_valid": "Credenciales válidas",
+        "title_invalid": "No conectado",
+        "desc_valid": "Tu token de acceso se autentica con Meta. Consulta el estado de registro a continuación para ver si los webhooks están realmente conectados.",
+        "desc_invalid": "Configura tus credenciales de la API de Meta a continuación para conectar tu cuenta de WhatsApp Business."
+      },
+      "registration": {
+        "title_live": "Registrado — Meta entregará los eventos a wacrm",
+        "title_not_live": "No registrado — Meta no entregará los eventos",
+        "btn_verify": "Verificar con Meta",
+        "desc_live_1": "Suscrito desde",
+        "desc_live_unknown": "desconocido",
+        "desc_live_2": ". Haz clic en",
+        "desc_live_3": "Verificar con Meta",
+        "desc_live_4": "si los eventos dejan de llegar.",
+        "desc_failed_1": "El último intento falló con:",
+        "desc_failed_2": ". Introduce (o corrige) el PIN de 2 pasos a continuación y haz clic en Guardar Configuración para reintentar.",
+        "desc_skipped": "Este número se guardó antes de que existiera el seguimiento de registro, o se omitió el registro. Introduce el PIN de 2 pasos a continuación y haz clic en Guardar Configuración para suscribirlo.",
+        "diag_title": "Diagnóstico — última ejecución: ",
+        "diag_live": "en vivo",
+        "diag_not_live": "no en vivo"
+      },
+      "embedded": {
+        "title": "Conectar con Meta",
+        "description": "La forma más fácil y oficial de conectar tu cuenta de WhatsApp Business.",
+        "btn": "Conectar tu WhatsApp",
+        "btn_loading": "Conectando...",
+        "hint": "Al hacer clic en este botón, se te pedirá que selecciones tu cuenta de WhatsApp Business y tu número de teléfono."
+      },
+      "manual": {
+        "title": "Avanzado: Configuración Manual",
+        "phone": "ID del Número de Teléfono",
+        "phone_placeholder": "ej. 100234567890123",
+        "waba": "ID de la Cuenta de WhatsApp Business",
+        "waba_placeholder": "ej. 100234567890456",
+        "token": "Token de Acceso Permanente",
+        "token_placeholder": "Introduce tu token de acceso",
+        "token_hint": "El token se oculta por seguridad. Vuelve a introducirlo para actualizar la configuración.",
+        "verify": "Token de Verificación del Webhook",
+        "verify_placeholder": "Crea un token de verificación personalizado",
+        "verify_hint": "Una cadena personalizada que tú creas. Debe coincidir con el token que configuraste en los ajustes del webhook de Meta.",
+        "pin": "PIN de verificación en 2 pasos",
+        "pin_opt": "(opcional)",
+        "pin_placeholder": "PIN de 6 dígitos de Meta WhatsApp Manager",
+        "pin_hint_1": "Solo es necesario para conectar mensajes",
+        "pin_hint_2": "entrantes",
+        "pin_hint_3": "para un número en",
+        "pin_hint_4": "producción",
+        "pin_hint_5": ". Configúralo en",
+        "pin_hint_6": "Meta Business Manager → Cuentas de WhatsApp → Números de teléfono → Verificación en 2 pasos",
+        "pin_hint_7": ", y pégalo aquí para que wacrm pueda suscribir el número — de lo contrario, Meta enviará los eventos entrantes a la última aplicación que lo haya reclamado (el síntoma que afecta a los segundos números bajo un WABA compartido).",
+        "pin_hint_8": "Los números de prueba de Meta",
+        "pin_hint_9": "no tienen PIN y están pre-registrados — déjalo en blanco para ellos. Dejarlo en blanco también mantiene intacto un registro existente."
+      },
+      "webhook": {
+        "title": "Configuración del Webhook",
+        "description": "Usa esta URL como tu callback de webhook en el Panel de la App de Meta.",
+        "label": "URL de Callback del Webhook"
+      },
+      "actions": {
+        "save": "Guardar Configuración",
+        "saving": "Guardando...",
+        "test": "Probar Conexión de API",
+        "testing": "Probando...",
+        "reset": "Restablecer Configuración",
+        "resetting": "Restableciendo..."
+      }
+    },
+    "members": {
+      "title": "Miembros del equipo",
+      "description": "Personas con acceso a esta cuenta. Los roles controlan lo que puede hacer cada miembro del equipo.",
+      "invite_member": "Invitar miembro",
+      "status_online": "en línea",
+      "status_away": "ausente",
+      "status_offline": "desconectado",
+      "member_count_one": "miembro",
+      "member_count_other": "miembros",
+      "unnamed": "Sin nombre",
+      "you": "Tú",
+      "joined": "Se unió el",
+      "pending_invitations": "Invitaciones pendientes",
+      "invite_warning": "La URL de invitación en texto sin formato solo se muestra una vez al crearla por motivos de seguridad; para volver a compartirla, revoca la invitación a continuación y crea una nueva.",
+      "no_invites": "No hay invitaciones pendientes.",
+      "no_invites_help_1": "Haz clic en",
+      "no_invites_help_2": "Invitar miembro",
+      "no_invites_help_3": "arriba para generar un enlace compartible.",
+      "untitled_invite": "Invitación sin título",
+      "created": "Creada el",
+      "expires_in_days_one": "caduca en {{count}} día",
+      "expires_in_days_other": "caduca en {{count}} días",
+      "expires_in_hours_one": "caduca en {{count}} hora",
+      "expires_in_hours_other": "caduca en {{count}} horas",
+      "expired": "caducado",
+      "revoke": "Revocar",
+      "remove_title": "Eliminar miembro",
+      "remove_desc_1": "¿Eliminar a",
+      "remove_desc_2": "de la cuenta? Se cerrará su sesión en esta cuenta y se le proporcionará una nueva cuenta personal en su próximo inicio de sesión. Su inicio de sesión no se eliminará.",
+      "cancel": "Cancelar",
+      "removing": "Eliminando...",
+      "remove_btn": "Eliminar miembro",
+      "toasts": {
+        "load_members_failed": "Error al cargar los miembros",
+        "load_invites_failed": "Error al cargar las invitaciones",
+        "server_error": "No se pudo contactar con el servidor",
+        "update_role_failed": "Error al actualizar el rol",
+        "updated_role": "Actualizado {{name}} a {{role}}",
+        "member_fallback": "miembro",
+        "remove_failed": "Error al eliminar miembro",
+        "removed": "Eliminado {{name}}",
+        "revoke_failed": "Error al revocar la invitación",
+        "revoked": "Invitación revocada"
+      }
+    },
+    "security": {
+      "title": "Inicio de sesión y seguridad",
+      "description": "Cambia tu contraseña y cierra sesión en tus dispositivos. Esto mantiene tu cuenta segura.",
+      "password": {
+        "title": "Contraseña",
+        "description": "Usa al menos {{minPassword}} caracteres. Permanecerás conectado en este dispositivo después de cambiarla.",
+        "current_password": "Contraseña actual",
+        "new_password": "Nueva contraseña",
+        "confirm_new_password": "Confirmar nueva contraseña",
+        "updating": "Actualizando…",
+        "update_password": "Actualizar contraseña",
+        "error_no_email": "No se puede cambiar la contraseña sin un correo electrónico actual",
+        "error_too_short": "La contraseña debe tener al menos {{minPassword}} caracteres",
+        "error_mismatch": "La nueva contraseña y la confirmación no coinciden",
+        "error_wrong_current": "La contraseña actual es incorrecta",
+        "error_update_failed": "Error al actualizar la contraseña: {{error}}",
+        "error_unknown": "Error desconocido",
+        "success_updated": "Contraseña actualizada"
+      },
+      "sessions": {
+        "title": "Sesiones activas",
+        "description": "Cierra sesión en todos los dispositivos donde hayas iniciado sesión, incluido este. Útil si has perdido un portátil o has compartido tu contraseña.",
+        "sign_out_all_btn": "Cerrar sesión en todos los dispositivos",
+        "dialog_title": "¿Cerrar sesión en todas partes?",
+        "dialog_description": "Se cerrará la sesión de todos los dispositivos conectados a esta cuenta y tendrás que volver a iniciarla. Serás redirigido a la página de inicio de sesión.",
+        "cancel": "Cancelar",
+        "signing_out": "Cerrando sesión…",
+        "sign_out_all": "Cerrar sesión en todas partes",
+        "error_signout_failed": "Error al cerrar sesión: {{error}}",
+        "error_unknown": "Error desconocido"
+      }
+    },
+    "api_keys": {
+      "title": "Claves de API",
+      "description": "Las claves autentican la API REST pública para que puedas crear tus propias automatizaciones.",
+      "new_key": "Nueva clave de API",
+      "no_keys": "No hay claves de API todavía.",
+      "create_hint": "Haz clic en Nueva clave de API para crear una.",
+      "ask_admin": "Pide a un administrador que cree una.",
+      "status_revoked": "Revocada",
+      "status_expired": "Caducada",
+      "no_scopes": "Sin alcances",
+      "created": "Creada {{date}}",
+      "last_used": "último uso {{date}}",
+      "never_used": "nunca usada",
+      "expires": "caduca {{date}}",
+      "revoke": "Revocar",
+      "toasts": {
+        "load_failed": "Error al cargar las claves de API",
+        "revoke_success": "\"{{name}}\" revocada",
+        "revoke_failed": "Error al revocar la clave",
+        "server_error": "No se pudo contactar con el servidor",
+        "req_name": "Dale un nombre a la clave",
+        "create_failed": "Error al crear la clave",
+        "copy_success": "Clave de API copiada",
+        "copy_failed": "Error al copiar — selecciona y copia manualmente"
+      },
+      "dialog": {
+        "copy_title": "Copia tu clave de API",
+        "copy_desc": "Esta es la única vez que se muestra la clave completa. Guárdala en un lugar seguro — si la pierdes, revócala y crea una nueva.",
+        "key_label": "Clave de API",
+        "copy": "Copiar",
+        "done": "Listo",
+        "new_title": "Nueva clave de API",
+        "new_desc": "Nómbrala según la integración que la usará y concédele solo los alcances que necesita.",
+        "name_label": "Nombre",
+        "name_placeholder": "ej. Automatización de Zapier",
+        "scopes_label": "Alcances",
+        "scopes_hint": "Una clave sin alcances aún puede llamar a GET /api/v1/me para verificar que funciona.",
+        "cancel": "Cancelar",
+        "creating": "Creando…",
+        "create_key": "Crear clave"
+      }
+    }
   },
   "common": {
     "loading": "Cargando..."
@@ -72,6 +411,280 @@
       "back_to_login": "Volver a Iniciar sesión",
       "success_title": "Revisa tu correo",
       "success_desc": "Si existe una cuenta con ese correo, te hemos enviado un enlace para restablecer la contraseña."
+    }
+  },
+  "contacts": {
+    "title": "Contactos",
+    "subtitle": "Gestiona tu lista de contactos.",
+    "subtitle_with_count": "{{count}} contactos en total.",
+    "custom_fields": {
+      "title": "Campos personalizados",
+      "description": "Define campos extra para contactos (ej. código postal, fuente del lead). Aparecen en cada contacto y en la acción de automatización \"Actualizar Campo de Contacto\".",
+      "new_placeholder": "Nuevo campo…",
+      "add": "Añadir",
+      "loading": "Cargando…",
+      "empty": "Aún no hay campos personalizados.",
+      "duplicate": "Ya existe un campo llamado \"{{name}}\".",
+      "create_error": "No se pudo crear el campo. Es posible que no tengas permisos.",
+      "created": "\"{{name}}\" creado.",
+      "rename_error": "No se pudo renombrar el campo.",
+      "delete_error": "No se pudo eliminar el campo.",
+      "deleted": "\"{{name}}\" eliminado.",
+      "rename_aria": "Renombrar {{name}}",
+      "delete_title": "Eliminar campo",
+      "confirm_delete": "¿Eliminar \"{{name}}\"? Esto también elimina su valor almacenado en cada contacto. No se puede deshacer."
+    },
+    "import": {
+      "title": "Importar Contactos",
+      "description": "Sube un archivo CSV con una columna <0>phone</0> obligatoria. Opcional: <1>name</1>, <2>email</2>, <3>company</3>, <4>tags</4> (separadas por comas; celdas con múltiples etiquetas entre comillas).",
+      "click_to_choose": "Haz clic para elegir un archivo CSV",
+      "csv_limit": ".csv hasta el límite de tu navegador",
+      "preview": "Vista previa · primeros {{count}}",
+      "import_complete": "Importación completada",
+      "imported": "{{count}} importados",
+      "skipped": "{{count}} omitidos",
+      "failed": "{{count}} fallidos",
+      "tags_assigned_one": "{{count}} etiqueta asignada",
+      "tags_assigned_other": "{{count}} etiquetas asignadas",
+      "close": "Cerrar",
+      "cancel": "Cancelar",
+      "import_button_one": "Importar {{count}} contacto",
+      "import_button_other": "Importar {{count}} contactos",
+      "invalid_csv": "No se encontraron filas válidas. Asegúrate de que el CSV tenga una columna \"phone\".",
+      "will_create_tag": "(se creará al importar)",
+      "rows_ready_one": "{{count}} fila lista",
+      "rows_ready_other": "{{count}} filas listas",
+      "rows_not_shown_one": "+{{count}} fila no mostrada",
+      "rows_not_shown_other": "+{{count}} filas no mostradas"
+    },
+    "add_contact": "Añadir Contacto",
+    "edit_contact": "Editar Contacto",
+    "search_placeholder": "Buscar por nombre, teléfono o email...",
+    "filter_by_tags": "Filtrar por etiquetas",
+    "clear_all": "Borrar todo",
+    "filter_by_tag": "Filtrar por {{name}}",
+    "remove_tag_filter": "Eliminar filtro {{name}}",
+    "select_contact": "Seleccionar {{name}}",
+    "no_tags": "Sin etiquetas aún.",
+    "contact_selected": "contacto seleccionado",
+    "contacts_selected": "contactos seleccionados",
+    "clear": "Limpiar",
+    "delete_selected": "Eliminar seleccionados",
+    "select_all": "Seleccionar todos los contactos de esta página",
+    "columns": {
+      "name": "Nombre",
+      "phone": "Teléfono",
+      "email": "Correo",
+      "company": "Empresa",
+      "tags": "Etiquetas",
+      "created": "Creado"
+    },
+    "loading": "Cargando contactos...",
+    "empty_filtered": "Ningún contacto coincide con tus filtros.",
+    "empty_all": "Aún no hay contactos.",
+    "add_first": "Añade tu primer contacto",
+    "unnamed": "Sin nombre",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "pagination": {
+      "showing": "Mostrando {{from}}-{{to}} de {{total}}",
+      "page_of": "Página {{page}} de {{totalPages}}"
+    },
+    "delete_dialog": {
+      "title": "Eliminar Contacto",
+      "title_plural": "Eliminar {{count}} Contactos",
+      "confirm": "¿Estás seguro de que deseas eliminar a {{name}}? Esta acción no se puede deshacer.",
+      "confirm_plural": "¿Estás seguro de que deseas eliminar {{count}} contactos? Esta acción no se puede deshacer."
+    },
+    "form": {
+      "add_title": "Añadir Contacto",
+      "edit_title": "Editar Contacto",
+      "add_desc": "Completa los detalles para crear un nuevo contacto.",
+      "edit_desc": "Actualiza los detalles del contacto a continuación.",
+      "name": "Nombre",
+      "phone": "Teléfono",
+      "email": "Correo electrónico",
+      "company": "Empresa",
+      "tags": "Etiquetas",
+      "name_placeholder": "Juan Pérez",
+      "phone_placeholder": "+52 234 567 8900",
+      "email_placeholder": "juan@ejemplo.com",
+      "company_placeholder": "Mi Empresa S.A.",
+      "required_phone": "El número de teléfono es obligatorio",
+      "duplicate_phone": "Ya existe un contacto con este número de teléfono",
+      "duplicate_similar": "Ya existe un contacto con un número muy similar.",
+      "phone_hint": "Incluye el código de país, ej. +52 para México",
+      "loading_tags": "Cargando etiquetas...",
+      "no_tags": "No hay etiquetas disponibles. Crea etiquetas en Configuración.",
+      "cancel": "Cancelar",
+      "create": "Crear",
+      "update": "Actualizar",
+      "created": "Contacto creado",
+      "updated": "Contacto actualizado",
+      "view_existing": "Ver {{name}}"
+    },
+    "detail": {
+      "unknown": "Desconocido",
+      "description": "Detalles del contacto",
+      "send_template": "Enviar plantilla",
+      "tabs": {
+        "details": "Detalles",
+        "tags": "Etiquetas",
+        "notes": "Notas",
+        "custom": "Campos Personalizados",
+        "deals": "Negocios"
+      },
+      "name": "Nombre",
+      "phone": "Teléfono",
+      "email": "Correo",
+      "company": "Empresa",
+      "save_changes": "Guardar Cambios",
+      "tags_hint": "Haz clic en una etiqueta para añadirla o quitarla de este contacto.",
+      "no_tags": "No hay etiquetas disponibles. Crea etiquetas en Configuración.",
+      "note_placeholder": "Escribe una nota...",
+      "add_note": "Añadir Nota",
+      "no_notes": "Aún no hay notas.",
+      "no_custom": "No hay campos personalizados definidos. Créalos en Configuración.",
+      "enter_field": "Ingresa {{name}}...",
+      "save_custom": "Guardar Campos Personalizados",
+      "no_deals": "Aún no hay negocios"
+    },
+    "toasts": {
+      "failed_load": "Error al cargar contactos",
+      "deleted_one": "Contacto eliminado",
+      "deleted_other": "{{count}} contactos eliminados",
+      "failed_delete": "Error al eliminar el contacto",
+      "failed_delete_plural": "Error al eliminar contactos",
+      "failed_save": "Error al guardar el contacto",
+      "failed_update": "Error al actualizar el contacto",
+      "note_added": "Nota añadida",
+      "note_deleted": "Nota eliminada",
+      "failed_note": "Error al añadir la nota",
+      "failed_note_delete": "Error al eliminar la nota",
+      "not_authenticated": "No autenticado",
+      "custom_saved": "Campos personalizados guardados",
+      "custom_failed": "Error al guardar campos personalizados",
+      "template_sent": "Plantilla \"{{name}}\" enviada",
+      "failed_template": "Error al enviar plantilla: {{reason}}"
+    }
+  },
+  "pipelines": {
+    "title": "Embudos",
+    "select_pipeline": "Seleccionar Embudo",
+    "no_pipelines": "Aún no hay embudos",
+    "manage_pipelines": "Administrar Embudos",
+    "add_pipeline": "Añadir Embudo",
+    "add_deal": "Añadir Trato",
+    "create_pipeline": "Crear Embudo",
+    "new_pipeline": "Nuevo Embudo",
+    "pipeline_name": "Nombre del Embudo",
+    "pipeline_name_placeholder": "ej. Ventas Corporativas",
+    "default_stages_hint": "Las etapas predeterminadas (Nuevo Lead → Ganado) se crearán automáticamente.",
+    "cancel": "Cancelar",
+    "creating": "Creando...",
+    "empty_title": "Aún no hay embudos",
+    "empty_desc": "Crea un embudo para empezar a rastrear tratos",
+    "drop_deal_here": "Suelta un trato aquí",
+    "board": {
+      "add_deal": "Añadir Trato"
+    },
+    "deal_card": {
+      "no_contact": "Sin contacto",
+      "won": "Ganado",
+      "lost": "Perdido"
+    },
+    "deal_form": {
+      "new_title": "Nuevo Trato",
+      "edit_title": "Editar Trato",
+      "title": "Título",
+      "title_placeholder": "Título del trato",
+      "contact": "Contacto",
+      "select_contact": "Selecciona un contacto",
+      "link_to_conversation": "Vincular Conversación",
+      "value": "Valor",
+      "currency": "Moneda",
+      "expected_close_date": "Fecha de Cierre Prevista",
+      "stage": "Etapa",
+      "assigned_to": "Asignado A",
+      "unassigned": "Sin asignar",
+      "notes": "Notas",
+      "notes_placeholder": "Añadir notas...",
+      "status": "Estado",
+      "mark_as_won": "Marcar como Ganado",
+      "mark_as_lost": "Marcar como Perdido",
+      "reopen_deal": "Reabrir trato",
+      "cancel": "Cancelar",
+      "saving": "Guardando...",
+      "save_changes": "Guardar Cambios",
+      "create_deal": "Crear Trato",
+      "delete_confirm": "¿Eliminar este trato?",
+      "confirm": "Confirmar",
+      "deleting": "Eliminando...",
+      "delete_deal": "Eliminar Trato"
+    },
+    "analytics": {
+      "total_deals": "Tratos Totales",
+      "pipeline_value": "Valor del Embudo",
+      "avg_deal_size": "Valor Promedio",
+      "weighted_value": "Valor Ponderado",
+      "won_this_month": "Ganados Este Mes",
+      "lost_this_month": "Perdidos Este Mes",
+      "tooltip_total_deals": "Cuenta de cada trato en este embudo que no esté marcado como Perdido. Los tratos Ganados aún están incluidos.",
+      "tooltip_pipeline_value": "Suma de los valores de todos los tratos en este embudo, excluyendo los marcados como Perdidos.",
+      "tooltip_avg_deal_size": "Valor del Embudo dividido por Tratos Totales — el valor promedio de un trato no perdido.",
+      "tooltip_weighted_value": "Ingreso esperado: valor de cada trato abierto × su probabilidad de etapa. Primera etapa ≈ 10%, etapas progresan hasta 90%, Ganado = 100%. Tratos perdidos excluidos.",
+      "tooltip_won_this_month": "Tratos marcados como Ganados desde el primer día del mes actual.",
+      "tooltip_lost_this_month": "Tratos marcados como Perdidos desde el primer día del mes actual.",
+      "how_label_calculated": "Cómo se calcula {{label}}"
+    },
+    "settings": {
+      "title": "Administrar Embudo",
+      "delete_pipeline": "Eliminar Embudo",
+      "delete_confirm_desc": "Esto archivará todos los tratos en este embudo. No se puede deshacer.",
+      "cancel": "Cancelar",
+      "deleting": "Eliminando...",
+      "pipeline_name": "Nombre del Embudo",
+      "stages": "Etapas",
+      "new_stage_name": "Nombre de nueva etapa",
+      "add": "Añadir",
+      "create_new": "Crear un nuevo embudo",
+      "saving": "Guardando...",
+      "save_changes": "Guardar Cambios",
+      "drag_to_reorder": "Arrastrar para reordenar",
+      "change_color": "Cambiar color",
+      "pick_color": "Elegir color {{color}}"
+    },
+    "toasts": {
+      "failed_move": "Error al mover el trato",
+      "failed_create_pipeline": "Error al crear el embudo",
+      "pipeline_created": "Embudo creado",
+      "failed_save_deal": "Error al guardar el trato",
+      "failed_create_deal": "Error al crear el trato",
+      "deal_updated": "Trato actualizado",
+      "deal_created": "Trato creado",
+      "required_fields": "El título, el contacto y la etapa son obligatorios",
+      "failed_status": "Error al actualizar el estado del trato",
+      "marked_won": "Marcado como ganado",
+      "marked_lost": "Marcado como perdido",
+      "deal_reopened": "Trato reabierto",
+      "failed_delete_deal": "Error al eliminar el trato",
+      "deal_deleted": "Trato eliminado",
+      "failed_save_pipeline": "Error al guardar el embudo",
+      "pipeline_saved": "Embudo guardado",
+      "failed_add_stage": "Error al añadir la etapa",
+      "stage_has_deals": "Primero mueve o elimina los tratos en esta etapa",
+      "failed_delete_stage": "Error al eliminar la etapa",
+      "failed_delete_pipeline": "Error al eliminar el embudo",
+      "pipeline_deleted": "Embudo eliminado",
+      "not_signed_in": "No has iniciado sesión",
+      "not_linked": "Tu perfil no está vinculado a una cuenta."
+    },
+    "default_stages": {
+      "new_lead": "Nuevo prospecto",
+      "qualified": "Calificado",
+      "proposal_sent": "Propuesta enviada",
+      "negotiation": "En negociación",
+      "won": "Ganado"
     }
   },
   "dashboard": {
@@ -148,5 +761,474 @@
         "days": "hace {{count}}d"
       }
     }
+  },
+  "inbox": {
+    "whatsapp_not_connected": "WhatsApp® no está conectado. Ve a Configuración para conectar tu cuenta.",
+    "conversation_list": {
+      "search_placeholder": "Buscar conversaciones...",
+      "filters": {
+        "all": "Todas",
+        "unread": "No leídas",
+        "open": "Abiertas",
+        "pending": "Pendientes",
+        "closed": "Cerradas",
+        "tags": "Etiquetas",
+        "tag": "Etiqueta",
+        "company": "Empresa",
+        "all_companies": "Todas las empresas",
+        "clear_all": "Borrar todo"
+      },
+      "empty": "No se encontraron conversaciones",
+      "unknown_contact": "Desconocido",
+      "no_messages": "Sin mensajes aún"
+    },
+    "message_thread": {
+      "today": "Hoy",
+      "yesterday": "Ayer",
+      "assignment": {
+        "assigned": "Asignado",
+        "assign": "Asignar",
+        "unassign": "Desasignar",
+        "no_teammates": "No hay compañeros disponibles",
+        "me": " (yo)"
+      },
+      "empty_selection": {
+        "title": "Selecciona una conversación",
+        "subtitle": "Elige una conversación a la izquierda para empezar"
+      },
+      "empty_messages": {
+        "title": "Aún no hay mensajes",
+        "subtitle": "Envía una plantilla para iniciar la conversación"
+      },
+      "session_timer": {
+        "no_messages": "Sin mensajes del cliente",
+        "expired": "Expirada",
+        "hours_remaining": "Quedan {{count}}h",
+        "minutes_remaining": "Quedan {{count}}m"
+      },
+      "authors": {
+        "customer": "Cliente",
+        "you": "Tú"
+      },
+      "errors": {
+        "wait_sending": "Espera a que el mensaje termine de enviarse",
+        "send_failed": "Error al enviar: {{reason}}",
+        "reaction_failed": "Error en reacción: {{reason}}",
+        "template_failed": "Error al enviar plantilla: {{reason}}",
+        "assignment_failed": "Error al actualizar asignación"
+      }
+    },
+    "composer": {
+      "errors": {
+        "ai_not_setup": "La IA aún no está configurada. Actívala en Configuración → Asistente de IA.",
+        "draft_failed": "No se pudo redactar una respuesta.",
+        "no_reply": "El asistente no devolvió ninguna respuesta.",
+        "ai_unreachable": "No se pudo conectar con el asistente de IA.",
+        "file_too_large": "El archivo pesa {{actual}} MB — el límite para {{kind}} es {{limit}} MB.",
+        "upload_failed": "Error al subir el archivo.",
+        "recording_too_long": "La grabación es demasiado larga (más de 16 MB).",
+        "voice_not_supported": "La grabación de voz no está soportada en este navegador.",
+        "mic_denied": "Acceso al micrófono denegado o no disponible."
+      },
+      "session_expired_banner": "La sesión de 24 horas ha expirado. Usa una plantilla para continuar.",
+      "templates": "Plantillas",
+      "recording": "Grabando… {{current}} / {{max}}",
+      "cancel": "Cancelar",
+      "stop_and_attach": "Detener y adjuntar",
+      "readonly_tooltip": "Solo lectura — tu rol no permite enviar mensajes",
+      "attach_media": "Adjuntar multimedia",
+      "media_types": {
+        "photo": "Foto",
+        "video": "Video",
+        "document": "Documento",
+        "voice_note": "Nota de voz"
+      },
+      "send_template": "Enviar plantilla",
+      "draft_with_ai": "Redactar respuesta con IA",
+      "placeholders": {
+        "readonly": "Solo lectura — los visores no pueden responder",
+        "expired": "Sesión expirada - usa una plantilla",
+        "type_message": "Escribe un mensaje... (Shift+Enter para nueva línea)",
+        "add_caption": "Añade un comentario…"
+      },
+      "ai_hint": "Toca ✨ para redactar una respuesta con IA — puedes editarla antes de enviarla",
+      "remove_attachment": "Eliminar archivo adjunto"
+    },
+    "message_actions": {
+      "copy_empty": "Nada que copiar",
+      "copied": "Copiado",
+      "copy_failed": "Error al copiar",
+      "react": "Reaccionar",
+      "react_with": "Reaccionar con {{emoji}}",
+      "reply": "Responder",
+      "copy": "Copiar"
+    },
+    "reply_quote": {
+      "cancel_reply": "Cancelar respuesta",
+      "preview": {
+        "image": "[Imagen]",
+        "video": "[Video]",
+        "audio": "[Audio]",
+        "document": "[Documento]",
+        "location": "[Ubicación]",
+        "template": "[Plantilla]",
+        "message": "[Mensaje]"
+      }
+    },
+    "message_bubble": {
+      "media_unavailable": "{{label}} no disponible",
+      "shared_image": "Imagen compartida",
+      "document": "Documento",
+      "template": "Plantilla",
+      "location_shared": "Ubicación compartida",
+      "button_reply": "Respuesta por botón",
+      "interactive_reply": "[Respuesta interactiva]",
+      "unsupported": "[Tipo de mensaje no soportado]"
+    },
+    "template_picker": {
+      "title_send": "Enviar plantilla",
+      "desc_fill": "Completa los espacios para renderizar esta plantilla. Meta requiere que todas las variables estén llenas.",
+      "desc_pick": "Elige una plantilla aprobada de WhatsApp para enviar a este contacto.",
+      "no_templates": "No hay plantillas aprobadas",
+      "no_templates_desc": "Aprueba una plantilla en Meta WhatsApp Manager, luego sincronízala desde Configuración → Plantillas.",
+      "preview": "Vista previa",
+      "header_var": "Encabezado {{1}}",
+      "header_placeholder": "Valor para la variable del encabezado",
+      "body_var": "Cuerpo {{val}}",
+      "body_placeholder": "Valor para {{val}}",
+      "url_button": "Botón de URL \"{{text}}\" — valor para {{1}}",
+      "url_placeholder": "Valor del sufijo URL",
+      "final_url": "URL final:",
+      "back": "Atrás",
+      "cancel": "Cancelar",
+      "send": "Enviar plantilla"
+    },
+    "contact_sidebar": {
+      "select_conversation": "Selecciona una conversación",
+      "tags": "Etiquetas",
+      "no_tags": "Sin etiquetas",
+      "active_deals": "Negocios Activos",
+      "no_deals": "Sin negocios",
+      "notes": "Notas",
+      "add_note_placeholder": "Añadir una nota..."
+    }
+  },
+  "broadcasts": {
+    "title": "Difusiones",
+    "description": "Envía mensajes masivos a tus contactos usando plantillas aprobadas.",
+    "new_broadcast": "Nueva difusión",
+    "no_broadcasts_title": "Aún no hay difusiones",
+    "no_broadcasts_desc": "Crea tu primera difusión para llegar a tus contactos a escala.",
+    "error_load": "Error al cargar las difusiones",
+    "retry": "Reintentar",
+    "table": {
+      "name": "Nombre",
+      "template": "Plantilla",
+      "recipients": "Destinatarios",
+      "delivery": "Entrega",
+      "read": "Lectura",
+      "status": "Estado",
+      "date": "Fecha"
+    },
+    "new": {
+      "title": "Nueva difusión",
+      "description": "Crea y envía un mensaje masivo a tus contactos.",
+      "steps": {
+        "template": "Plantilla",
+        "audience": "Audiencia",
+        "personalize": "Personalizar",
+        "send": "Enviar"
+      },
+      "toasts": {
+        "failed": "Fallo en la difusión",
+        "missing_name": "Ponle un nombre a la difusión antes de guardar un borrador.",
+        "not_signed_in": "No has iniciado sesión.",
+        "not_linked": "Tu perfil no está vinculado a una cuenta.",
+        "draft_failed": "Error al guardar el borrador",
+        "draft_saved": "Borrador guardado"
+      },
+      "step1": {
+        "title": "Elige una plantilla",
+        "description": "Selecciona una plantilla de mensaje aprobada para tu difusión.",
+        "no_templates": "No hay plantillas disponibles.",
+        "create_first": "Crea una plantilla en Configuración primero.",
+        "back": "Atrás",
+        "next": "Siguiente",
+        "error_load": "Error al cargar las plantillas"
+      },
+      "step2": {
+        "title": "Seleccionar audiencia",
+        "description": "Elige quién recibirá esta difusión.",
+        "options": {
+          "all": {
+            "label": "Todos los contactos",
+            "desc": "Enviar a todos los contactos en tu base de datos"
+          },
+          "tags": {
+            "label": "Filtrar por etiquetas",
+            "desc": "Dirigirse a contactos con etiquetas específicas"
+          },
+          "custom_field": {
+            "label": "Campo personalizado",
+            "desc": "Filtrar por un valor de campo personalizado"
+          },
+          "csv": {
+            "label": "Subir CSV",
+            "desc": "Subir una lista de números de teléfono"
+          }
+        },
+        "operators": {
+          "is": "es",
+          "is_not": "no es",
+          "contains": "contiene"
+        },
+        "tags": {
+          "select": "Seleccionar etiquetas",
+          "not_found": "No se encontraron etiquetas. Crea etiquetas en Configuración.",
+          "exclude": "Excluir contactos con estas etiquetas",
+          "optional": "(opcional)",
+          "no_available": "No hay etiquetas disponibles."
+        },
+        "custom_field": {
+          "title": "Filtro de campo personalizado",
+          "no_defined": "No hay campos personalizados definidos. Crea uno en Configuración → Campos personalizados.",
+          "select": "Seleccionar campo…",
+          "value_placeholder": "Valor"
+        },
+        "summary": {
+          "title": "Resumen de audiencia",
+          "calculating": "Calculando…",
+          "estimated": "destinatarios estimados",
+          "select_type": "Selecciona un tipo de audiencia para ver el estimado."
+        },
+        "back": "Atrás",
+        "next": "Siguiente"
+      },
+      "step3": {
+        "title": "Personalizar mensaje",
+        "description": "Asigna variables de plantilla a campos de contacto, campos personalizados o valores estáticos.",
+        "header_media": "Medio del encabezado",
+        "media_url": "URL del medio",
+        "media_desc_1": "URL pública del",
+        "media_desc_2": "enviado como encabezado del mensaje. Se usará para cada destinatario en esta difusión.",
+        "media_missing": "Se requiere una URL de medio para enviar esta plantilla.",
+        "media_invalid": "Ingresa una URL http(s) válida.",
+        "no_variables": "Esta plantilla no tiene variables para personalizar.",
+        "mapping_type": "Tipo de asignación",
+        "mapping_static": "Valor estático",
+        "mapping_field": "Campo de contacto",
+        "mapping_custom": "Campo personalizado",
+        "value_label": "Valor",
+        "field_label": "Campo",
+        "enter_value": "Ingresa el valor...",
+        "select_field": "Selecciona campo...",
+        "loading": "Cargando...",
+        "no_custom_fields": "Sin campos personalizados",
+        "select_custom_field": "Selecciona campo personalizado...",
+        "live_preview": "Vista previa en vivo",
+        "sample_data": "datos de muestra",
+        "missing_map_1": "Asigna cada marcador de posición antes de continuar — aún falta",
+        "missing_map_2": ". De lo contrario, esos marcadores de posición se enviarán a Meta como cadenas vacías.",
+        "back": "Atrás",
+        "next": "Siguiente",
+        "contact_fields": {
+          "name": "Nombre de contacto",
+          "phone": "Número de teléfono",
+          "email": "Dirección de correo electrónico",
+          "company": "Empresa"
+        }
+      },
+      "step4": {
+        "title": "Revisar y enviar",
+        "description": "Ponle un nombre a tu difusión, revisa los detalles y envía.",
+        "name_label": "Nombre de la difusión",
+        "name_placeholder": "ej. Anuncio Promoción Verano",
+        "summary": "Resumen",
+        "template": "Plantilla",
+        "audience": "Audiencia",
+        "estimated_reach": "Alcance estimado",
+        "language": "Idioma",
+        "sending": "Enviando difusión...",
+        "back": "Atrás",
+        "save_draft": "Guardar borrador",
+        "send_broadcast": "Enviar difusión",
+        "confirm_title": "Confirmar difusión",
+        "confirm_desc_1": "Estás a punto de enviar esta difusión a",
+        "confirm_desc_2": "contactos usando la plantilla",
+        "confirm_desc_3": ". Esta acción no se puede deshacer.",
+        "cancel": "Cancelar",
+        "confirm_send": "Confirmar y enviar",
+        "audience_labels": {
+          "all": "Todos los contactos",
+          "tags": "Etiquetas",
+          "selected": "seleccionados",
+          "csv": "Subida CSV",
+          "custom": "Personalizado"
+        }
+      }
+    }
+  },
+  "automations": {
+    "title": "Automatizaciones",
+    "description": "Crea flujos de trabajo que reaccionan automáticamente a eventos de WhatsApp®.",
+    "create": "Crear automatización",
+    "templates_title": "Plantillas de inicio rápido",
+    "no_automations": "Aún no hay automatizaciones",
+    "pick_template": "Elige una plantilla de arriba o crea una desde cero.",
+    "delete_title": "Eliminar automatización",
+    "delete_desc_1": "Esto elimina permanentemente a",
+    "delete_desc_2": "y su historial de ejecuciones. Esto no se puede deshacer.",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "duplicate": "Duplicar",
+    "view_logs": "Ver registros",
+    "activated": "Automatización activada",
+    "paused": "Automatización pausada",
+    "failed_update": "Error al actualizar",
+    "duplicated": "Automatización duplicada",
+    "failed_duplicate": "Error al duplicar",
+    "deleted": "Automatización eliminada",
+    "failed_delete": "Error al eliminar",
+    "failed_load": "Error al cargar las automatizaciones",
+    "retry": "Reintentar",
+    "run": "ejecución",
+    "runs": "ejecuciones",
+    "last": "última",
+    "templates": {
+      "welcome_message": {
+        "name": "Mensaje de bienvenida",
+        "description": "Auto-respuesta a contactos que escriben por primera vez con un saludo."
+      },
+      "out_of_office": {
+        "name": "Fuera de la oficina",
+        "description": "Auto-respuesta fuera del horario laboral para que nadie espere."
+      },
+      "lead_qualifier": {
+        "name": "Calificador de prospectos",
+        "description": "Haz preguntas de calificación para filtrar prospectos entrantes."
+      },
+      "follow_up_reminder": {
+        "name": "Recordatorio de seguimiento",
+        "description": "Envía un recordatorio si un contacto no ha respondido en 24 horas."
+      }
+    }
+  },
+  "flows": {
+    "title": "Flujos",
+    "description": "Crea conversaciones de WhatsApp ramificadas y basadas en botones. Útil para menús, preguntas frecuentes y clasificación antes de que intervenga un humano.",
+    "create": "Nuevo flujo",
+    "no_flows": "Aún no hay flujos",
+    "empty_desc": "Construye tu primera conversación: un menú de bienvenida, una búsqueda de pedidos, un bot de preguntas frecuentes. Los clientes tocan botones; el bot los enruta a la respuesta correcta (o al agente correcto).",
+    "create_first": "Crea tu primer flujo",
+    "create_title": "Crear un nuevo flujo",
+    "create_desc": "Empieza desde una plantilla o construye desde cero.",
+    "start_template": "Empezar desde una plantilla",
+    "node": "nodo",
+    "nodes": "nodos",
+    "start_blank": "O empieza en blanco",
+    "blank_placeholder": "ej. Menú de bienvenida",
+    "cancel": "Cancelar",
+    "create_blank": "Crear flujo en blanco",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "run": "ejecución",
+    "runs": "ejecuciones",
+    "delete_confirm": "¿Eliminar \"{{name}}\"? Cualquier ejecución activa terminará inmediatamente.",
+    "deleted": "Flujo eliminado.",
+    "failed_delete": "No se pudo eliminar el flujo.",
+    "failed_create": "No se pudo crear el flujo.",
+    "failed_load": "No se pudieron cargar los flujos.",
+    "failed_clone": "Error al clonar",
+    "status_draft": "Borrador",
+    "status_active": "Activo",
+    "status_archived": "Archivado",
+    "trigger_keyword_none": "Se activa por palabra clave (ninguna configurada)",
+    "trigger_keyword": "Se activa con:",
+    "trigger_first_message": "Se activa en el primer mensaje entrante de un contacto",
+    "trigger_manual": "Activación manual"
+  },
+  "agents": {
+    "title": "Agentes de IA",
+    "description": "Tu propio agente de IA con tu propia clave: configúralo y luego pruébalo en el entorno de pruebas antes de que responda a los clientes en la bandeja de entrada.",
+    "playground": "Entorno de pruebas",
+    "setup": "Configuración",
+    "setup_title": "Configuración del agente",
+    "setup_desc": "Trae tu propia clave de OpenAI o Anthropic. wacrm llama al proveedor directamente con tu clave — sin tarifas de IA por puesto, y tus datos siguen siendo tuyos. Esto potencia los borradores de IA en la bandeja de entrada, el bot de auto-respuesta y el Entorno de pruebas.",
+    "admin_only": "Solo los administradores y propietarios pueden cambiar la configuración de IA.",
+    "provider_key": "Proveedor y clave",
+    "encrypted_desc": "Tu clave está encriptada en reposo (AES-256-GCM) y nunca se muestra de nuevo después de guardarse.",
+    "provider_label": "Proveedor",
+    "model_label": "Modelo",
+    "api_key_label": "Clave API",
+    "test_key": "Probar clave",
+    "embeddings_key": "Clave de embeddings",
+    "embeddings_optional": "(opcional — habilita la búsqueda semántica en la base de conocimientos)",
+    "embeddings_desc_1": "Una clave de OpenAI utilizada solo para integrar tu base de conocimientos (text-embedding-3-small)",
+    "embeddings_desc_2": " — puede ser la misma clave anterior",
+    "embeddings_desc_3": ". Déjalo en blanco para usar la búsqueda por palabras clave en su lugar. Bórralo para desactivar la búsqueda semántica.",
+    "behaviour_title": "Comportamiento",
+    "behaviour_desc": "Cuéntale al asistente sobre tu negocio: productos, tono, lo que puede y no puede prometer. Este contexto alimenta tanto los borradores como las respuestas automáticas.",
+    "business_context": "Contexto de negocio e instrucciones",
+    "business_placeholder": "ej. Somos Acme, una tienda de equipamiento de café. Sé cálido y conciso. Nunca cotices precios o fechas de entrega — transfiérelo a un humano para eso.",
+    "enable_ai": "Habilitar asistente de IA",
+    "enable_ai_desc": "Interruptor principal. Activa el botón de “Redactar con IA” en la bandeja de entrada.",
+    "auto_reply": "Respuesta automática a mensajes entrantes",
+    "auto_reply_desc": "El bot responde automáticamente a los mensajes entrantes (solo cuando ningún flujo los maneja y no hay agente asignado). Se transfiere a un humano cuando no puede ayudar.",
+    "max_replies": "Máx auto-respuestas por conversación",
+    "max_replies_desc": "Después de esta cantidad de respuestas del bot en un hilo, el bot se queda en silencio.",
+    "remove_btn": "Eliminar",
+    "save_btn": "Guardar",
+    "test_success": "La clave funciona — el proveedor respondió.",
+    "test_rejected": "El proveedor rechazó la solicitud.",
+    "test_failed": "No se pudo conectar con el proveedor.",
+    "save_error_model": "Ingresa el nombre del modelo.",
+    "save_error_key": "Ingresa tu clave API.",
+    "save_success": "Asistente de IA guardado.",
+    "save_failed": "Error al guardar.",
+    "remove_success": "Configuración de IA eliminada.",
+    "remove_failed": "Error al eliminar.",
+    "playground_title": "Entorno de pruebas",
+    "playground_subtitle": "— prueba las respuestas como si fueras un cliente",
+    "playground_reset": "Reiniciar",
+    "playground_empty_1": "Envía un mensaje para ver cómo respondería tu agente.",
+    "playground_empty_2": "Utiliza tu base de conocimientos y se comporta exactamente igual que el bot de auto-respuesta — incluyendo las transferencias.",
+    "playground_go_setup": "¿Aún no está configurado? Ve a Configuración",
+    "playground_handoff": "Transferiría a un humano aquí",
+    "playground_thinking": "Pensando…",
+    "playground_placeholder": "Escribe un mensaje de cliente…",
+    "playground_err_setup": "No hay agente configurado — finaliza la Configuración primero.",
+    "playground_err_reply": "No se pudo obtener una respuesta.",
+    "playground_err_reach": "No se pudo contactar al agente.",
+    "provider_encrypted": "Tu clave se cifra en reposo (AES-256-GCM) y nunca se vuelve a mostrar después de guardarla."
+  },
+  "knowledge": {
+    "load_failed": "No se pudo cargar la base de conocimientos",
+    "open_failed": "No se pudo abrir el documento",
+    "validation_required": "Título y contenido son requeridos.",
+    "doc_added": "Documento agregado.",
+    "doc_updated": "Documento actualizado.",
+    "save_failed": "Error al guardar.",
+    "doc_removed": "Documento eliminado.",
+    "remove_failed": "Error al eliminar.",
+    "reindex_success": "Se reindexaron {{count}} documento(s).",
+    "reindex_failed": "Error al reindexar.",
+    "title": "Base de conocimientos",
+    "desc_main": "Agrega preguntas frecuentes, políticas o detalles del producto. El asistente recupera las piezas relevantes al redactar y auto-responder, para poder responder en lugar de transferir.",
+    "desc_semantic_on": " Búsqueda semántica activada (clave de embeddings configurada).",
+    "desc_semantic_off": " Usando búsqueda por palabras clave — agrega una clave de embeddings arriba para búsqueda semántica.",
+    "loading": "Cargando…",
+    "empty": "No hay documentos aún.",
+    "edit_tooltip": "Editar",
+    "delete_tooltip": "Eliminar",
+    "doc_title": "Título",
+    "doc_title_placeholder": "ej. Política de devoluciones y reembolsos",
+    "doc_content": "Contenido",
+    "doc_content_placeholder": "Pega la respuesta a la pregunta frecuente, texto de la política o detalles del producto…",
+    "cancel": "Cancelar",
+    "save_doc": "Guardar documento",
+    "add_doc": "Agregar documento",
+    "reindex_tooltip": "Re-incrustar todos los documentos (ej. después de agregar una clave de embeddings)",
+    "reindex_btn": "Reindexar"
   }
 }

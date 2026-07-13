@@ -28,6 +28,7 @@ import { SettingsPanelHead } from './settings-panel-head';
 import { AiKnowledgeCard } from './ai-knowledge';
 import { AI_PROVIDER_DEFAULT_MODEL } from '@/lib/ai/defaults';
 import type { AiProvider } from '@/lib/ai/types';
+import { useTranslation } from 'react-i18next';
 
 const MASKED_KEY = '••••••••••••••••';
 
@@ -42,6 +43,7 @@ const KEY_PLACEHOLDER: Record<AiProvider, string> = {
 };
 
 export function AiConfig() {
+  const { t } = useTranslation();
   const { accountId, accountRole, profileLoading } = useAuth();
   const canEdit = accountRole ? canEditSettings(accountRole) : false;
 
@@ -77,7 +79,7 @@ export function AiConfig() {
       const res = await fetch('/api/ai/config');
       const data = await res.json();
       if (!res.ok) {
-        toast.error(data.error ?? 'Failed to load AI configuration');
+        toast.error(data.error ?? t('agents.save_failed'));
         return;
       }
       if (data.configured) {
@@ -96,7 +98,7 @@ export function AiConfig() {
         setEmbeddingsKeyEdited(false);
       }
     } catch {
-      toast.error('Failed to load AI configuration');
+      toast.error(t('agents.save_failed'));
     } finally {
       setLoading(false);
     }
@@ -149,10 +151,10 @@ export function AiConfig() {
         }),
       });
       const data = await res.json();
-      if (res.ok) toast.success('Key works — the provider responded.');
-      else toast.error(data.error ?? 'The provider rejected the request.');
+      if (res.ok) toast.success(t('agents.test_success'));
+      else toast.error(data.error ?? t('agents.test_rejected'));
     } catch {
-      toast.error('Could not reach the provider.');
+      toast.error(t('agents.test_failed'));
     } finally {
       setTesting(false);
     }
@@ -160,11 +162,11 @@ export function AiConfig() {
 
   const handleSave = async () => {
     if (!model.trim()) {
-      toast.error('Enter a model name.');
+      toast.error(t('agents.save_error_model'));
       return;
     }
     if (!configured && !keyEdited) {
-      toast.error('Enter your API key.');
+      toast.error(t('agents.save_error_key'));
       return;
     }
     setSaving(true);
@@ -176,13 +178,13 @@ export function AiConfig() {
       });
       const data = await res.json();
       if (res.ok) {
-        toast.success('AI assistant saved.');
+        toast.success(t('agents.save_success'));
         await fetchConfig();
       } else {
-        toast.error(data.error ?? 'Failed to save.');
+        toast.error(data.error ?? t('agents.save_failed'));
       }
     } catch {
-      toast.error('Failed to save.');
+      toast.error(t('agents.save_failed'));
     } finally {
       setSaving(false);
     }
@@ -193,7 +195,7 @@ export function AiConfig() {
     try {
       const res = await fetch('/api/ai/config', { method: 'DELETE' });
       if (res.ok) {
-        toast.success('AI configuration removed.');
+        toast.success(t('agents.remove_success'));
         setConfigured(false);
         setHasStoredKey(false);
         setApiKey('');
@@ -203,10 +205,10 @@ export function AiConfig() {
         setSystemPrompt('');
       } else {
         const data = await res.json();
-        toast.error(data.error ?? 'Failed to remove.');
+        toast.error(data.error ?? t('agents.remove_failed'));
       }
     } catch {
-      toast.error('Failed to remove.');
+      toast.error(t('agents.remove_failed'));
     } finally {
       setRemoving(false);
     }
@@ -225,13 +227,13 @@ export function AiConfig() {
   return (
     <div>
       <SettingsPanelHead
-        title="Agent setup"
-        description="Bring your own OpenAI or Anthropic key. wacrm calls the provider directly with your key — no per-seat AI fees, and your data stays yours. This powers AI-drafted replies in the inbox, the auto-reply bot, and the Playground."
+        title={t('agents.setup_title')}
+        description={t('agents.setup_desc')}
       />
 
       {!canEdit && (
         <p className="mb-4 rounded-md border border-border bg-muted/40 px-3 py-2 text-sm text-muted-foreground">
-          Only admins and owners can change the AI configuration.
+          {t('agents.admin_only')}
         </p>
       )}
 
@@ -239,17 +241,16 @@ export function AiConfig() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <Sparkles className="h-4 w-4 text-primary" /> Provider & key
+              <Sparkles className="h-4 w-4 text-primary" /> {t('agents.provider_key')}
             </CardTitle>
             <CardDescription>
-              Your key is encrypted at rest (AES-256-GCM) and never shown again
-              after saving.
+              {t('agents.provider_encrypted')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label>Provider</Label>
+                <Label>{t('agents.provider_label')}</Label>
                 <Select
                   value={provider}
                   onValueChange={(v) => handleProviderChange(v as AiProvider)}
@@ -268,7 +269,7 @@ export function AiConfig() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="ai-model">Model</Label>
+                <Label htmlFor="ai-model">{t('agents.model_label')}</Label>
                 <Input
                   id="ai-model"
                   value={model}
@@ -280,7 +281,7 @@ export function AiConfig() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="ai-key">API key</Label>
+              <Label htmlFor="ai-key">{t('agents.api_key_label')}</Label>
               <div className="flex gap-2">
                 <div className="relative flex-1">
                   <Input
@@ -324,16 +325,16 @@ export function AiConfig() {
                   ) : (
                     <CheckCircle2 className="mr-2 h-4 w-4" />
                   )}
-                  Test key
+                  {t('agents.test_key')}
                 </Button>
               </div>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="ai-embeddings-key">
-                Embeddings key{' '}
+                {t('agents.embeddings_key')}{' '}
                 <span className="font-normal text-muted-foreground">
-                  (optional — enables semantic knowledge-base search)
+                  {t('agents.embeddings_optional')}
                 </span>
               </Label>
               <Input
@@ -355,11 +356,9 @@ export function AiConfig() {
                 autoComplete="off"
               />
               <p className="text-xs text-muted-foreground">
-                An OpenAI key used only to embed your knowledge base
-                (text-embedding-3-small)
-                {provider === 'openai' ? ' — can be the same key as above' : ''}.
-                Leave blank to use keyword search instead. Clear it to turn
-                semantic search off.
+                {t('agents.embeddings_desc_1')}
+                {provider === 'openai' ? t('agents.embeddings_desc_2') : ''}
+                {t('agents.embeddings_desc_3')}
               </p>
             </div>
           </CardContent>
@@ -367,21 +366,19 @@ export function AiConfig() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Behaviour</CardTitle>
+            <CardTitle className="text-base">{t('agents.behaviour_title')}</CardTitle>
             <CardDescription>
-              Tell the assistant about your business — products, tone, what it
-              may and may not promise. This context feeds both drafts and
-              auto-replies.
+              {t('agents.behaviour_desc')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="ai-prompt">Business context & instructions</Label>
+              <Label htmlFor="ai-prompt">{t('agents.business_context')}</Label>
               <Textarea
                 id="ai-prompt"
                 value={systemPrompt}
                 onChange={(e) => setSystemPrompt(e.target.value)}
-                placeholder="e.g. We are Acme, a coffee-equipment store. Be warm and concise. Never quote prices or delivery dates — hand off to a human for those."
+                placeholder={t('agents.business_placeholder')}
                 rows={5}
                 disabled={disabled}
               />
@@ -390,11 +387,10 @@ export function AiConfig() {
             <div className="flex items-center justify-between gap-4 rounded-md border border-border p-3">
               <div>
                 <p className="text-sm font-medium text-foreground">
-                  Enable AI assistant
+                  {t('agents.enable_ai')}
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  Master switch. Turns on the “Draft with AI” button in the
-                  inbox.
+                  {t('agents.enable_ai_desc')}
                 </p>
               </div>
               <Switch
@@ -407,12 +403,10 @@ export function AiConfig() {
             <div className="flex items-center justify-between gap-4 rounded-md border border-border p-3">
               <div>
                 <p className="text-sm font-medium text-foreground">
-                  Auto-reply to inbound messages
+                  {t('agents.auto_reply')}
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  The bot answers new inbound messages automatically (only when
-                  no flow handles them and no agent is assigned). Hands off to a
-                  human when it can’t help.
+                  {t('agents.auto_reply_desc')}
                 </p>
               </div>
               <Switch
@@ -424,9 +418,9 @@ export function AiConfig() {
 
             <div className="flex items-center justify-between gap-4">
               <div>
-                <Label htmlFor="ai-max">Max auto-replies per conversation</Label>
+                <Label htmlFor="ai-max">{t('agents.max_replies')}</Label>
                 <p className="text-xs text-muted-foreground">
-                  After this many bot replies in one thread, the bot goes quiet.
+                  {t('agents.max_replies_desc')}
                 </p>
               </div>
               <Input

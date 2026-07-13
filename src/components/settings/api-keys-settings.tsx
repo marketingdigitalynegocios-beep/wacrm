@@ -41,6 +41,7 @@ import {
   type ApiScope,
 } from '@/lib/api-keys/scopes';
 import { SettingsPanelHead } from './settings-panel-head';
+import { useTranslation } from 'react-i18next';
 
 interface ApiKey {
   id: string;
@@ -70,6 +71,7 @@ function keyStatus(k: ApiKey): 'active' | 'revoked' | 'expired' {
 
 export function ApiKeysSettings() {
   const { canEditSettings } = useAuth();
+  const { t } = useTranslation();
 
   const [keys, setKeys] = useState<ApiKey[]>([]);
   const [loading, setLoading] = useState(true);
@@ -81,14 +83,14 @@ export function ApiKeysSettings() {
       const res = await fetch('/api/account/api-keys', { cache: 'no-store' });
       if (!res.ok) {
         const payload = await res.json().catch(() => ({}));
-        toast.error(payload.error || 'Failed to load API keys');
+        toast.error(payload.error || t('settings.api_keys.toasts.load_failed'));
         return;
       }
       const data = (await res.json()) as { keys: ApiKey[] };
       setKeys(data.keys);
     } catch (err) {
       console.error('[ApiKeysSettings] load error:', err);
-      toast.error('Could not reach the server');
+      toast.error(t('settings.api_keys.toasts.server_error'));
     } finally {
       setLoading(false);
     }
@@ -106,10 +108,10 @@ export function ApiKeysSettings() {
       });
       if (!res.ok) {
         const payload = await res.json().catch(() => ({}));
-        toast.error(payload.error || 'Failed to revoke key');
+        toast.error(payload.error || t('settings.api_keys.toasts.revoke_failed'));
         return;
       }
-      toast.success(`Revoked "${key.name}"`);
+      toast.success(t('settings.api_keys.toasts.revoke_success', { name: key.name }));
       // Reflect the revoke locally without a refetch.
       setKeys((prev) =>
         prev.map((k) =>
@@ -118,7 +120,7 @@ export function ApiKeysSettings() {
       );
     } catch (err) {
       console.error('[ApiKeysSettings] revoke error:', err);
-      toast.error('Could not reach the server');
+      toast.error(t('settings.api_keys.toasts.server_error'));
     } finally {
       setRevoking(null);
     }
@@ -135,20 +137,17 @@ export function ApiKeysSettings() {
   return (
     <section className="animate-in fade-in-50 space-y-6 duration-200">
       <SettingsPanelHead
-        title="API keys"
+        title={t('settings.api_keys.title')}
         description={
           <>
-            Keys authenticate the public REST API (
-            <code className="text-xs">/api/v1</code>) so you can build your own
-            automations. Send them as{' '}
-            <code className="text-xs">Authorization: Bearer &lt;key&gt;</code>.
+            {t('settings.api_keys.description')} <code className="text-xs">Authorization: Bearer &lt;key&gt;</code>.
           </>
         }
         action={
           <RequireRole min="admin">
             <Button onClick={() => setCreateOpen(true)}>
               <Plus className="size-4" />
-              New API key
+              {t('settings.api_keys.new_key')}
             </Button>
           </RequireRole>
         }
@@ -159,16 +158,15 @@ export function ApiKeysSettings() {
           <CardContent className="flex flex-col items-center justify-center py-10 text-center">
             <KeyRound className="text-muted-foreground size-6" />
             <p className="text-muted-foreground mt-2 text-sm">
-              No API keys yet.
+              {t('settings.api_keys.no_keys')}
             </p>
             {canEditSettings ? (
               <p className="text-muted-foreground mt-1 text-xs">
-                Click <span className="text-foreground">New API key</span> to
-                create one.
+                {t('settings.api_keys.create_hint')}
               </p>
             ) : (
               <p className="text-muted-foreground mt-1 text-xs">
-                Ask an admin to create one.
+                {t('settings.api_keys.ask_admin')}
               </p>
             )}
           </CardContent>
@@ -198,12 +196,12 @@ export function ApiKeysSettings() {
                         </span>
                         {status === 'revoked' && (
                           <Badge className="border-border bg-muted text-muted-foreground text-[10px] tracking-wide uppercase">
-                            Revoked
+                            {t('settings.api_keys.status_revoked')}
                           </Badge>
                         )}
                         {status === 'expired' && (
                           <Badge className="border-border bg-muted text-muted-foreground text-[10px] tracking-wide uppercase">
-                            Expired
+                            {t('settings.api_keys.status_expired')}
                           </Badge>
                         )}
                       </div>
@@ -213,7 +211,7 @@ export function ApiKeysSettings() {
                       <div className="mt-1.5 flex flex-wrap gap-1">
                         {k.scopes.length === 0 ? (
                           <span className="text-muted-foreground text-xs">
-                            No scopes
+                            {t('settings.api_keys.no_scopes')}
                           </span>
                         ) : (
                           k.scopes.map((s) => (
@@ -227,13 +225,13 @@ export function ApiKeysSettings() {
                         )}
                       </div>
                       <p className="text-muted-foreground mt-1.5 text-xs">
-                        Created {fmtDate(k.created_at)}
+                        {t('settings.api_keys.created', { date: fmtDate(k.created_at) })}
                         {' · '}
                         {k.last_used_at
-                          ? `last used ${fmtDate(k.last_used_at)}`
-                          : 'never used'}
+                          ? t('settings.api_keys.last_used', { date: fmtDate(k.last_used_at) })
+                          : t('settings.api_keys.never_used')}
                         {k.expires_at && status !== 'expired'
-                          ? ` · expires ${fmtDate(k.expires_at)}`
+                          ? ` · ${t('settings.api_keys.expires', { date: fmtDate(k.expires_at) })}`
                           : ''}
                       </p>
                     </div>
@@ -252,7 +250,7 @@ export function ApiKeysSettings() {
                           ) : (
                             <Trash2 className="size-4" />
                           )}
-                          Revoke
+                          {t('settings.api_keys.revoke')}
                         </Button>
                       </RequireRole>
                     )}
@@ -286,6 +284,7 @@ function CreateKeyDialog({
   onOpenChange: (open: boolean) => void;
   onCreated: () => void;
 }) {
+  const { t } = useTranslation();
   const [name, setName] = useState('');
   const [scopes, setScopes] = useState<ApiScope[]>([]);
   const [submitting, setSubmitting] = useState(false);
@@ -308,7 +307,7 @@ function CreateKeyDialog({
   async function handleCreate() {
     const trimmed = name.trim();
     if (!trimmed) {
-      toast.error('Give the key a name');
+      toast.error(t('settings.api_keys.toasts.req_name'));
       return;
     }
     setSubmitting(true);
@@ -320,14 +319,14 @@ function CreateKeyDialog({
       });
       const payload = await res.json().catch(() => ({}));
       if (!res.ok) {
-        toast.error(payload.error || 'Failed to create key');
+        toast.error(payload.error || t('settings.api_keys.toasts.create_failed'));
         return;
       }
       setCreatedKey(payload.plaintext as string);
       onCreated();
     } catch (err) {
       console.error('[CreateKeyDialog] create error:', err);
-      toast.error('Could not reach the server');
+      toast.error(t('settings.api_keys.toasts.server_error'));
     } finally {
       setSubmitting(false);
     }
@@ -337,9 +336,9 @@ function CreateKeyDialog({
     if (!createdKey) return;
     try {
       await navigator.clipboard.writeText(createdKey);
-      toast.success('API key copied');
+      toast.success(t('settings.api_keys.toasts.copy_success'));
     } catch {
-      toast.error('Copy failed — select and copy manually');
+      toast.error(t('settings.api_keys.toasts.copy_failed'));
     }
   }
 
@@ -356,16 +355,15 @@ function CreateKeyDialog({
           <>
             <DialogHeader>
               <DialogTitle className="text-popover-foreground">
-                Copy your API key
+                {t('settings.api_keys.dialog.copy_title')}
               </DialogTitle>
               <DialogDescription className="text-muted-foreground">
-                This is the only time the full key is shown. Store it somewhere
-                safe — if you lose it, revoke it and create a new one.
+                {t('settings.api_keys.dialog.copy_desc')}
               </DialogDescription>
             </DialogHeader>
 
             <div className="space-y-1.5">
-              <Label className="text-muted-foreground">API key</Label>
+              <Label className="text-muted-foreground">{t('settings.api_keys.dialog.key_label')}</Label>
               <div className="flex gap-2">
                 <Input
                   readOnly
@@ -375,7 +373,7 @@ function CreateKeyDialog({
                 />
                 <Button type="button" variant="outline" onClick={copyKey}>
                   <Copy className="size-4" />
-                  Copy
+                  {t('settings.api_keys.dialog.copy')}
                 </Button>
               </div>
             </div>
@@ -387,7 +385,7 @@ function CreateKeyDialog({
                   onOpenChange(false);
                 }}
               >
-                Done
+                {t('settings.api_keys.dialog.done')}
               </Button>
             </DialogFooter>
           </>
@@ -395,30 +393,29 @@ function CreateKeyDialog({
           <>
             <DialogHeader>
               <DialogTitle className="text-popover-foreground">
-                New API key
+                {t('settings.api_keys.dialog.new_title')}
               </DialogTitle>
               <DialogDescription className="text-muted-foreground">
-                Name it after the integration that will use it, and grant only
-                the scopes it needs.
+                {t('settings.api_keys.dialog.new_desc')}
               </DialogDescription>
             </DialogHeader>
 
             <div className="space-y-4">
               <div className="space-y-1.5">
                 <Label htmlFor="api-key-name" className="text-muted-foreground">
-                  Name
+                  {t('settings.api_keys.dialog.name_label')}
                 </Label>
                 <Input
                   id="api-key-name"
                   value={name}
                   maxLength={80}
-                  placeholder="e.g. Zapier automation"
+                  placeholder={t('settings.api_keys.dialog.name_placeholder')}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label className="text-muted-foreground">Scopes</Label>
+                <Label className="text-muted-foreground">{t('settings.api_keys.dialog.scopes_label')}</Label>
                 <div className="border-border space-y-2 rounded-md border p-3">
                   {API_SCOPES.map((scope) => (
                     <label
@@ -444,9 +441,7 @@ function CreateKeyDialog({
                   ))}
                 </div>
                 <p className="text-muted-foreground text-xs">
-                  A key with no scopes can still call{' '}
-                  <code className="text-[11px]">GET /api/v1/me</code> to verify
-                  it works.
+                  {t('settings.api_keys.dialog.scopes_hint')}
                 </p>
               </div>
             </div>
@@ -460,16 +455,16 @@ function CreateKeyDialog({
                 }}
                 className="border-border text-muted-foreground hover:bg-muted"
               >
-                Cancel
+                {t('settings.api_keys.dialog.cancel')}
               </Button>
               <Button onClick={handleCreate} disabled={submitting}>
                 {submitting ? (
                   <>
                     <Loader2 className="size-4 animate-spin" />
-                    Creating…
+                    {t('settings.api_keys.dialog.creating')}
                   </>
                 ) : (
-                  'Create key'
+                  t('settings.api_keys.dialog.create_key')
                 )}
               </Button>
             </DialogFooter>

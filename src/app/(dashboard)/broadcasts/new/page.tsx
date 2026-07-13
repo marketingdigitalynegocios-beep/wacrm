@@ -12,6 +12,7 @@ import { Step3Personalize } from '@/components/broadcasts/step3-personalize';
 import { Step4ScheduleSend } from '@/components/broadcasts/step4-schedule-send';
 import { useBroadcastSending } from '@/hooks/use-broadcast-sending';
 import { Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const steps = [
   { label: 'Template', key: 'template' },
@@ -22,6 +23,7 @@ const steps = [
 
 export default function NewBroadcastPage() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { accountId } = useAuth();
   const { createAndSendBroadcast, isProcessing, progress } = useBroadcastSending();
 
@@ -65,7 +67,7 @@ export default function NewBroadcastPage() {
     } catch (err) {
       // Previously swallowed with console.error — the wizard would
       // just no-op, leaving the user confused. Surface the reason.
-      const message = err instanceof Error ? err.message : 'Broadcast failed';
+      const message = err instanceof Error ? err.message : t('broadcasts.new.toasts.failed');
       console.error('Broadcast failed:', err);
       toast.error(message);
     }
@@ -82,7 +84,7 @@ export default function NewBroadcastPage() {
    */
   async function handleSaveDraft() {
     if (!template || !name.trim()) {
-      toast.error('Give the broadcast a name before saving a draft.');
+      toast.error(t('broadcasts.new.toasts.missing_name'));
       return;
     }
     const supabase = createClient();
@@ -91,11 +93,11 @@ export default function NewBroadcastPage() {
     } = await supabase.auth.getSession();
     const user = session?.user;
     if (!user) {
-      toast.error('Not signed in.');
+      toast.error(t('broadcasts.new.toasts.not_signed_in'));
       return;
     }
     if (!accountId) {
-      toast.error('Your profile is not linked to an account.');
+      toast.error(t('broadcasts.new.toasts.not_linked'));
       return;
     }
 
@@ -120,10 +122,10 @@ export default function NewBroadcastPage() {
     });
 
     if (error) {
-      toast.error(`Failed to save draft: ${error.message}`);
+      toast.error(`${t('broadcasts.new.toasts.draft_failed')}: ${error.message}`);
       return;
     }
-    toast.success('Draft saved');
+    toast.success(t('broadcasts.new.toasts.draft_saved'));
     router.push('/broadcasts');
   }
 
@@ -131,9 +133,9 @@ export default function NewBroadcastPage() {
     <div className="mx-auto max-w-3xl space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-foreground">New Broadcast</h1>
+        <h1 className="text-2xl font-bold text-foreground">{t('broadcasts.new.title')}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Create and send a broadcast message to your contacts.
+          {t('broadcasts.new.description')}
         </p>
       </div>
 
@@ -162,7 +164,7 @@ export default function NewBroadcastPage() {
                     isActive ? 'text-foreground' : isCompleted ? 'text-primary' : 'text-muted-foreground'
                   }`}
                 >
-                  {step.label}
+                  {t(`broadcasts.new.steps.${step.key}`)}
                 </span>
               </div>
               {index < steps.length - 1 && (

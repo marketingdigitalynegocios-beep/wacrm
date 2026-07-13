@@ -32,6 +32,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 interface DealFormProps {
   open: boolean;
@@ -53,6 +54,7 @@ export function DealForm({
   onSaved,
 }: DealFormProps) {
   const supabase = createClient();
+  const { t } = useTranslation();
   const { accountId, defaultCurrency } = useAuth();
 
   const [title, setTitle] = useState("");
@@ -151,7 +153,7 @@ export function DealForm({
 
   async function handleSave() {
     if (!title.trim() || !contactId || !stageId) {
-      toast.error("Title, contact, and stage are required");
+      toast.error(t("pipelines.toasts.required_fields"));
       return;
     }
     setSaving(true);
@@ -174,7 +176,7 @@ export function DealForm({
         .update(payload)
         .eq("id", deal.id);
       if (error) {
-        toast.error("Failed to save deal");
+        toast.error(t("pipelines.toasts.failed_save_deal"));
         setSaving(false);
         return;
       }
@@ -184,12 +186,12 @@ export function DealForm({
       } = await supabase.auth.getSession();
       const user = session?.user;
       if (!user) {
-        toast.error("Not signed in");
+        toast.error(t("pipelines.toasts.not_signed_in"));
         setSaving(false);
         return;
       }
       if (!accountId) {
-        toast.error("Your profile is not linked to an account.");
+        toast.error(t("pipelines.toasts.not_linked"));
         setSaving(false);
         return;
       }
@@ -197,14 +199,14 @@ export function DealForm({
         .from("deals")
         .insert({ ...payload, user_id: user.id, account_id: accountId, status: "open" });
       if (error) {
-        toast.error("Failed to create deal");
+        toast.error(t("pipelines.toasts.failed_create_deal"));
         setSaving(false);
         return;
       }
     }
 
     setSaving(false);
-    toast.success(deal ? "Deal updated" : "Deal created");
+    toast.success(deal ? t("pipelines.toasts.deal_updated") : t("pipelines.toasts.deal_created"));
     onOpenChange(false);
     onSaved();
   }
@@ -218,11 +220,11 @@ export function DealForm({
       .eq("id", deal.id);
     setStatusAction(null);
     if (error) {
-      toast.error("Failed to update deal status");
+      toast.error(t("pipelines.toasts.failed_status"));
       return;
     }
     toast.success(
-      status === "won" ? "Marked as won" : status === "lost" ? "Marked as lost" : "Deal reopened",
+      status === "won" ? t("pipelines.toasts.marked_won") : status === "lost" ? t("pipelines.toasts.marked_lost") : t("pipelines.toasts.deal_reopened"),
     );
     onOpenChange(false);
     onSaved();
@@ -234,10 +236,10 @@ export function DealForm({
     const { error } = await supabase.from("deals").delete().eq("id", deal.id);
     setDeleting(false);
     if (error) {
-      toast.error("Failed to delete deal");
+      toast.error(t("pipelines.toasts.failed_delete_deal"));
       return;
     }
-    toast.success("Deal deleted");
+    toast.success(t("pipelines.toasts.deal_deleted"));
     setConfirmDelete(false);
     onOpenChange(false);
     onSaved();
@@ -252,7 +254,7 @@ export function DealForm({
         <div className="flex h-full flex-col">
           <SheetHeader className="border-b border-border/50 p-4">
             <SheetTitle className="text-popover-foreground">
-              {deal ? "Edit Deal" : "New Deal"}
+              {deal ? t("pipelines.deal_form.edit_title") : t("pipelines.deal_form.new_title")}
             </SheetTitle>
           </SheetHeader>
 
