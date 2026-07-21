@@ -1,9 +1,10 @@
 "use client";
 
 import type { Deal, PipelineStage } from "@/types";
-import { Calendar, Check, X } from "lucide-react";
+import { Calendar, Check, X, MessageCircle } from "lucide-react";
 import { formatCurrency } from "@/lib/currency";
 import { useTranslation } from "react-i18next";
+import { getWhatsAppLink } from "@/lib/whatsapp/phone-utils";
 
 interface DealCardProps {
   deal: Deal;
@@ -73,11 +74,25 @@ export function DealCard({ deal, stage, onEdit, isOverlay }: DealCardProps) {
       </div>
 
       {/* Contact row */}
-      <div className="mt-2 flex items-center gap-2">
-        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-muted text-[10px] font-semibold text-foreground">
-          {initials(deal.contact?.name, deal.contact?.phone)}
-        </span>
-        <span className="truncate text-xs text-muted-foreground">{contactLabel}</span>
+      <div className="mt-2 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-muted text-[10px] font-semibold text-foreground">
+            {initials(deal.contact?.name, deal.contact?.phone)}
+          </span>
+          <span className="truncate text-xs text-muted-foreground">{contactLabel}</span>
+        </div>
+        {deal.contact?.phone && (
+          <a
+            href={getWhatsAppLink(deal.contact.phone)}
+            target="_blank"
+            rel="noreferrer noopener"
+            onClick={(e) => e.stopPropagation()}
+            className="shrink-0 text-muted-foreground hover:text-primary transition-colors p-0.5"
+            title="Contactar por WhatsApp"
+          >
+            <MessageCircle className="h-3.5 w-3.5" />
+          </a>
+        )}
       </div>
 
       <div className="mt-2 flex items-center justify-between">

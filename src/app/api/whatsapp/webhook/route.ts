@@ -71,8 +71,9 @@ interface WhatsAppWebhookEntry {
         phone_number_id: string
       }
       contacts?: Array<{
-        profile: { name: string }
-        wa_id: string
+        profile?: { name?: string }
+        wa_id?: string
+        username?: string
       }>
       messages?: WhatsAppMessage[]
       statuses?: Array<{
@@ -565,7 +566,7 @@ async function handleReaction(
 
 async function processMessage(
   message: WhatsAppMessage,
-  contact: { profile: { name: string }; wa_id: string },
+  contact: { profile?: { name?: string }; wa_id?: string; username?: string },
   // Tenancy. Resolved from the matched whatsapp_config row; every
   // contact / conversation / message row created downstream is
   // stamped with this so any member of the account can see it.
@@ -576,15 +577,22 @@ async function processMessage(
   configOwnerUserId: string,
   accessToken: string
 ) {
-  const senderPhone = normalizePhone(message.from)
-  const contactName = contact.profile.name
+  // Extract user identifier prioritizing contacts[0].wa_id || messages[0].from
+  const rawIdentifier = contact?.wa_id || message?.from || ''
+  const userIdentifier = normalizePhone(rawIdentifier)
+
+  const profileName = contact?.profile?.name?.trim() || ''
+  const username = contact?.username?.trim() || ''
+
+  // Fallback ladder for customer name: profile name -> @username -> userIdentifier
+  const contactDisplayName = profileName || (username ? `@${username.replace(/^@/, '')}` : userIdentifier)
 
   // Find or create contact
   const contactOutcome = await findOrCreateContact(
     accountId,
     configOwnerUserId,
-    senderPhone,
-    contactName
+    userIdentifier,
+    contactDisplayName
   )
   if (!contactOutcome) return
   const contactRecord = contactOutcome.contact
@@ -979,24 +987,19 @@ interface ContactOutcome {
 async function findOrCreateContact(
   accountId: string,
   configOwnerUserId: string,
-  phone: string,
+  phoneOrUser: string,
   name: string
 ): Promise<ContactOutcome | null> {
-  // Find an existing contact for this account by phone. The shared
-  // helper pre-filters in SQL by the last-8-digit suffix (so we don't
-  // pull every contact on every inbound message) then applies the
-  // strict `phonesMatch` in JS on the small candidate set. The same
-  // helper backs the manual contact form and CSV import, so all three
-  // paths agree on what "same number" means (issue #212).
+  // Find an existing contact for this account by phone or universal identifier.
   const existingContact = await findExistingContact(
     supabaseAdmin(),
     accountId,
-    phone,
+    phoneOrUser,
   )
 
   if (existingContact) {
-    // Update name if it changed
-    if (name && name !== existingContact.name) {
+    // Update name if a valid display name is present and existing name is missing or defaulted to phone
+    if (name && name !== existingContact.name && (!existingContact.name || existingContact.name === existingContact.phone)) {
       await supabaseAdmin()
         .from('contacts')
         .update({ name, updated_at: new Date().toISOString() })
@@ -1006,27 +1009,21 @@ async function findOrCreateContact(
   }
 
   // Create new contact. account_id is the tenancy column;
-  // user_id is the NOT NULL FK audit column (no inbound message
-  // has a single "user who created" it — we attribute to the
-  // WhatsApp config owner as a stable default).
+  // user_id is the NOT NULL FK audit column.
   const { data: newContact, error: createError } = await supabaseAdmin()
     .from('contacts')
     .insert({
       account_id: accountId,
       user_id: configOwnerUserId,
-      phone,
-      name: name || phone,
+      phone: phoneOrUser,
+      name: name || phoneOrUser,
     })
     .select()
     .single()
 
   if (createError) {
-    // Lost a race: a concurrent inbound delivery (or another path)
-    // created this contact between our lookup and insert, and the
-    // unique index (migration 022) rejected the duplicate. Re-resolve
-    // the existing row instead of dropping the message.
     if (isUniqueViolation(createError)) {
-      const raced = await findExistingContact(supabaseAdmin(), accountId, phone)
+      const raced = await findExistingContact(supabaseAdmin(), accountId, phoneOrUser)
       if (raced) return { contact: raced, wasCreated: false }
     }
     console.error('Error creating contact:', createError)

@@ -37,6 +37,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useAuth } from '@/hooks/use-auth';
+import { getWhatsAppLink } from '@/lib/whatsapp/phone-utils';
 
 type InviteRole = 'admin' | 'agent' | 'viewer';
 
@@ -171,7 +172,7 @@ export function InviteMemberDialog({
     // wouldn't be enough to disambiguate.
     const accountName = result?.accountName ?? 'our wacrm account';
     const message = `Join ${accountName} on wacrm using this link (valid for ${result?.expiresInDays} days): ${url}`;
-    return `https://wa.me/?text=${encodeURIComponent(message)}`;
+    return getWhatsAppLink('', message);
   }
 
   return (

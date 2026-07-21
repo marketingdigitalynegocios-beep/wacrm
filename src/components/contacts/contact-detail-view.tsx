@@ -38,8 +38,10 @@ import {
   X,
   DollarSign,
   LayoutTemplate,
+  MessageCircle,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { getWhatsAppLink } from '@/lib/whatsapp/phone-utils';
 
 interface ContactDetailViewProps {
   open: boolean;
@@ -423,6 +425,16 @@ export function ContactDetailView({
                         <Copy className="size-3" />
                       )}
                     </button>
+                    <a
+                      href={getWhatsAppLink(contact.phone)}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="flex items-center gap-1 hover:text-primary transition-colors text-primary font-medium"
+                      title="Contactar por WhatsApp"
+                    >
+                      <MessageCircle className="size-3" />
+                      WhatsApp
+                    </a>
                     {contact.email && (
                       <span className="flex items-center gap-1">
                         <Mail className="size-3" />

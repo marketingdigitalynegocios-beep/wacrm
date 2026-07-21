@@ -48,7 +48,9 @@ import {
   SlidersHorizontal,
   Filter,
   X,
+  MessageCircle,
 } from 'lucide-react';
+import { getWhatsAppLink } from '@/lib/whatsapp/phone-utils';
 import { ContactForm } from '@/components/contacts/contact-form';
 import { ContactDetailView } from '@/components/contacts/contact-detail-view';
 import { ImportModal } from '@/components/contacts/import-modal';
@@ -663,6 +665,16 @@ export default function ContactsPage() {
                         align="end"
                         className="bg-popover border-border"
                       >
+                        <DropdownMenuItem
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(getWhatsAppLink(contact.phone), '_blank', 'noopener,noreferrer');
+                          }}
+                          className="text-popover-foreground focus:bg-muted focus:text-foreground"
+                        >
+                          <MessageCircle className="size-4" />
+                          Contactar por WhatsApp
+                        </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={(e) => {
                             e.stopPropagation();

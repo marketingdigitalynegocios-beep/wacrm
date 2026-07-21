@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  getWhatsAppLink,
   isRecipientNotAllowedError,
   isValidE164,
   normalizePhone,
@@ -81,10 +82,14 @@ describe("isValidE164", () => {
     expect(isValidE164("+1234567890123456")).toBe(false); // 16 digits
   });
 
-  it("rejects strings with non-digit characters", () => {
+  it("rejects invalid numeric phone strings with non-digit characters", () => {
     expect(isValidE164("+1-415-555-1212")).toBe(false);
     expect(isValidE164("+1 4155551212")).toBe(false);
-    expect(isValidE164("abc12345678")).toBe(false);
+  });
+
+  it("accepts username handles containing letters", () => {
+    expect(isValidE164("abc12345678")).toBe(true);
+    expect(isValidE164("@juanperez")).toBe(true);
   });
 
   it("rejects the empty string", () => {
@@ -160,5 +165,36 @@ describe("isRecipientNotAllowedError", () => {
       false,
     );
     expect(isRecipientNotAllowedError("")).toBe(false);
+  });
+});
+
+describe("getWhatsAppLink", () => {
+  it("prepares 10-digit phone number with 57 country code", () => {
+    expect(getWhatsAppLink("3001234567")).toBe("https://wa.me/573001234567");
+    expect(getWhatsAppLink("+57 300 123 4567")).toBe("https://wa.me/573001234567");
+  });
+
+  it("leaves numbers with existing country codes intact", () => {
+    expect(getWhatsAppLink("573001234567")).toBe("https://wa.me/573001234567");
+    expect(getWhatsAppLink("14155551212")).toBe("https://wa.me/14155551212");
+  });
+
+  it("handles username handles with or without @ prefix", () => {
+    expect(getWhatsAppLink("@juanperez")).toBe("https://wa.me/juanperez");
+    expect(getWhatsAppLink("juanperez")).toBe("https://wa.me/juanperez");
+  });
+
+  it("appends encoded message query parameter when provided", () => {
+    expect(getWhatsAppLink("3001234567", "Hola mundo")).toBe(
+      "https://wa.me/573001234567?text=Hola%20mundo"
+    );
+    expect(getWhatsAppLink("@juanperez", "Un mensaje de prueba")).toBe(
+      "https://wa.me/juanperez?text=Un%20mensaje%20de%20prueba"
+    );
+  });
+
+  it("handles empty phoneOrUser input", () => {
+    expect(getWhatsAppLink("")).toBe("https://wa.me/");
+    expect(getWhatsAppLink("", "Hola")).toBe("https://wa.me/?text=Hola");
   });
 });

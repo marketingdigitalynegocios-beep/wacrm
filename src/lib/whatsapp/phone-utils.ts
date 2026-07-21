@@ -7,7 +7,7 @@ export function sanitizePhoneForMeta(phone: string): string {
   if (!phone) return ''
   // Meta opaque IDs or usernames contain letters. Do not strip them.
   if (/[a-zA-Z]/.test(phone)) {
-    return phone.trim()
+    return phone.trim().replace(/^@+/, '').toLowerCase()
   }
   return phone.replace(/\D/g, '')
 }
@@ -19,9 +19,40 @@ export function sanitizePhoneForMeta(phone: string): string {
 export function normalizePhone(phone: string): string {
   if (!phone) return ''
   if (/[a-zA-Z]/.test(phone)) {
-    return phone.trim().toLowerCase()
+    return phone.trim().replace(/^@+/, '').toLowerCase()
   }
   return phone.replace(/\D/g, '')
+}
+
+/**
+ * Generate a valid WhatsApp link (https://wa.me/...) for a phone number or username handle.
+ * - If `phoneOrUser` is a 10-digit numeric string, prepends country code (57).
+ * - If `phoneOrUser` is a Username handle (starts with @ or contains letters),
+ *   cleans the '@' and generates https://wa.me/username without numeric country code prefixing.
+ * - If `message` is provided, appends ?text=... query parameter.
+ */
+export function getWhatsAppLink(phoneOrUser: string, message?: string): string {
+  if (!phoneOrUser) {
+    const textParam = message ? `?text=${encodeURIComponent(message)}` : '';
+    return `https://wa.me/${textParam}`;
+  }
+
+  const trimmed = phoneOrUser.trim();
+  let path = '';
+
+  if (trimmed.startsWith('@') || /[a-zA-Z]/.test(trimmed)) {
+    path = trimmed.replace(/^@+/, '');
+  } else {
+    const digits = trimmed.replace(/\D/g, '');
+    if (digits.length === 10) {
+      path = `57${digits}`;
+    } else {
+      path = digits;
+    }
+  }
+
+  const query = message ? `?text=${encodeURIComponent(message)}` : '';
+  return `https://wa.me/${path}${query}`;
 }
 
 /**
@@ -41,12 +72,16 @@ export function phonesMatch(phone1: string, phone2: string): boolean {
 }
 
 /**
- * Validate phone number is E.164-like format (7-15 digits starting with non-zero).
- * Accepts with or without + prefix.
+ * Validate phone number is E.164-like format (7-15 digits starting with non-zero)
+ * or a valid WhatsApp Username handle (3-30 alphanumeric characters, dots, or underscores).
  */
 export function isValidE164(phone: string): boolean {
-  if (/[a-zA-Z]/.test(phone)) return true // Treat usernames/opaque IDs as valid
-  return /^\+?[1-9]\d{6,14}$/.test(phone)
+  if (!phone) return false
+  const trimmed = phone.trim()
+  if (/^@?[a-zA-Z0-9._]{3,30}$/.test(trimmed) && /[a-zA-Z]/.test(trimmed)) {
+    return true
+  }
+  return /^\+?[1-9]\d{6,14}$/.test(trimmed)
 }
 
 /**

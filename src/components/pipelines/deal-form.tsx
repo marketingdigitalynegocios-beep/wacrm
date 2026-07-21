@@ -30,9 +30,11 @@ import {
   MessageSquare,
   DollarSign,
   Loader2,
+  MessageCircle,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import { getWhatsAppLink } from "@/lib/whatsapp/phone-utils";
 
 interface DealFormProps {
   open: boolean;
@@ -284,15 +286,33 @@ export function DealForm({
                 ))}
               </select>
 
-              {linkedConversation && (
-                <Link
-                  href="/inbox"
-                  className="mt-1 inline-flex items-center gap-1.5 self-start rounded-md bg-primary/10 px-2 py-1 text-xs text-primary hover:bg-primary/20"
-                >
-                  <MessageSquare className="h-3 w-3" />
-                  Link to Conversation
-                </Link>
-              )}
+              <div className="flex flex-wrap items-center gap-2">
+                {linkedConversation && (
+                  <Link
+                    href="/inbox"
+                    className="mt-1 inline-flex items-center gap-1.5 self-start rounded-md bg-primary/10 px-2 py-1 text-xs text-primary hover:bg-primary/20"
+                  >
+                    <MessageSquare className="h-3 w-3" />
+                    Link to Conversation
+                  </Link>
+                )}
+                {contactId && (
+                  (() => {
+                    const selContact = contacts.find((c) => c.id === contactId);
+                    return selContact?.phone ? (
+                      <a
+                        href={getWhatsAppLink(selContact.phone)}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="mt-1 inline-flex items-center gap-1.5 self-start rounded-md bg-primary/10 px-2 py-1 text-xs text-primary hover:bg-primary/20"
+                      >
+                        <MessageCircle className="h-3 w-3" />
+                        Contactar por WhatsApp
+                      </a>
+                    ) : null;
+                  })()
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-[1fr_110px] gap-3">
