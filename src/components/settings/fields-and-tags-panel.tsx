@@ -1,6 +1,7 @@
 'use client';
 
 import { useCan } from '@/hooks/use-can';
+import { useTranslation } from 'react-i18next';
 
 import { CustomFieldsSettings } from './custom-fields-settings';
 import { SettingsPanelHead } from './settings-panel-head';
@@ -14,13 +15,14 @@ import { TagManager } from './tag-manager';
  * regardless.
  */
 export function FieldsAndTagsPanel() {
+  const { t } = useTranslation();
   const canEditSettings = useCan('edit-settings');
 
   return (
     <section className="max-w-3xl animate-in fade-in-50 space-y-4 duration-200">
       <SettingsPanelHead
-        title="Fields & tags"
-        description="Two ways to organize contacts: colour-coded tags for quick grouping, and custom fields for structured data."
+        title={t('settings.fields_panel.title')}
+        description={t('settings.fields_panel.description')}
       />
       <TagManager />
       {canEditSettings ? <CustomFieldsSettings /> : null}

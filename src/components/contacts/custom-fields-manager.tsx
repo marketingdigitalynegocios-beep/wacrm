@@ -98,7 +98,7 @@ export function CustomFieldsPanel() {
     const name = newName.trim();
     if (!name) return;
     if (!accountId || !user) {
-      toast.error('Your profile is not linked to an account.');
+      toast.error(t('contacts.custom_fields.not_linked'));
       return;
     }
     if (isDuplicate(name)) {

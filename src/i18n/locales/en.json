@@ -351,6 +351,45 @@
         "creating": "Creating…",
         "create_key": "Create key"
       }
+    },
+    "fields_panel": {
+      "title": "Fields & tags",
+      "description": "Two ways to organize contacts: colour-coded tags for quick grouping, and custom fields for structured data."
+    },
+    "tags": {
+      "title": "Tags",
+      "description": "Colour-coded labels for grouping and filtering contacts.",
+      "empty": "No tags yet — create your first one below.",
+      "placeholder": "e.g. Newsletter",
+      "add_tag": "Add tag",
+      "aria_delete": "Delete {{name}}",
+      "aria_use_color": "Use {{name}}",
+      "colors": {
+        "red": "Red",
+        "orange": "Orange",
+        "amber": "Amber",
+        "emerald": "Emerald",
+        "cyan": "Cyan",
+        "blue": "Blue",
+        "violet": "Violet",
+        "pink": "Pink"
+      },
+      "delete_dialog": {
+        "title": "Delete tag",
+        "description": "Delete the tag \"{{name}}\"? This removes it from all contacts and cannot be undone.",
+        "cancel": "Cancel",
+        "delete": "Delete tag",
+        "deleting": "Deleting..."
+      },
+      "toasts": {
+        "failed_load": "Failed to load tags",
+        "name_required": "Tag name is required",
+        "not_auth": "Not authenticated",
+        "created": "Tag created",
+        "create_failed": "Failed to create tag",
+        "deleted": "Tag deleted",
+        "delete_failed": "Failed to delete tag"
+      }
     }
   },
   "common": {
@@ -432,7 +471,8 @@
       "deleted": "Deleted \"{{name}}\".",
       "rename_aria": "Rename {{name}}",
       "delete_title": "Delete field",
-      "confirm_delete": "Delete \"{{name}}\"? This also removes its stored value on every contact. This cannot be undone."
+      "confirm_delete": "Delete \"{{name}}\"? This also removes its stored value on every contact. This cannot be undone.",
+      "not_linked": "Your profile is not linked to an account."
     },
     "import": {
       "title": "Import Contacts",

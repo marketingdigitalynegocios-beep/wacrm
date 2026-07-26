@@ -351,6 +351,45 @@
         "creating": "Creando…",
         "create_key": "Crear clave"
       }
+    },
+    "fields_panel": {
+      "title": "Campos y etiquetas",
+      "description": "Dos formas de organizar contactos: etiquetas de colores para agrupar rápidamente y campos personalizados para datos estructurados."
+    },
+    "tags": {
+      "title": "Etiquetas",
+      "description": "Etiquetas de colores para agrupar y filtrar contactos.",
+      "empty": "Aún no hay etiquetas — crea la primera a continuación.",
+      "placeholder": "ej. Boletín",
+      "add_tag": "Añadir etiqueta",
+      "aria_delete": "Eliminar {{name}}",
+      "aria_use_color": "Usar {{name}}",
+      "colors": {
+        "red": "Rojo",
+        "orange": "Naranja",
+        "amber": "Ámbar",
+        "emerald": "Esmeralda",
+        "cyan": "Cian",
+        "blue": "Azul",
+        "violet": "Violeta",
+        "pink": "Rosa"
+      },
+      "delete_dialog": {
+        "title": "Eliminar etiqueta",
+        "description": "¿Eliminar la etiqueta \"{{name}}\"? Esto la eliminará de todos los contactos y no se puede deshacer.",
+        "cancel": "Cancelar",
+        "delete": "Eliminar etiqueta",
+        "deleting": "Eliminando..."
+      },
+      "toasts": {
+        "failed_load": "Error al cargar las etiquetas",
+        "name_required": "El nombre de la etiqueta es obligatorio",
+        "not_auth": "No autenticado",
+        "created": "Etiqueta creada",
+        "create_failed": "Error al crear la etiqueta",
+        "deleted": "Etiqueta eliminada",
+        "delete_failed": "Error al eliminar la etiqueta"
+      }
     }
   },
   "common": {
@@ -432,7 +471,8 @@
       "deleted": "\"{{name}}\" eliminado.",
       "rename_aria": "Renombrar {{name}}",
       "delete_title": "Eliminar campo",
-      "confirm_delete": "¿Eliminar \"{{name}}\"? Esto también elimina su valor almacenado en cada contacto. No se puede deshacer."
+      "confirm_delete": "¿Eliminar \"{{name}}\"? Esto también elimina su valor almacenado en cada contacto. No se puede deshacer.",
+      "not_linked": "Tu perfil no está vinculado a una cuenta."
     },
     "import": {
       "title": "Importar Contactos",
